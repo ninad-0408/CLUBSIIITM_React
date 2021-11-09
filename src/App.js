@@ -1,9 +1,12 @@
-import './App.css';
+import React from 'react';
+import Home from './Components/Home/Home';
+import Footer from './Components/Footer/Footer';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      CLUBSIIITM
+      <Home />
+      <Footer />
     </div>
   );
 }
