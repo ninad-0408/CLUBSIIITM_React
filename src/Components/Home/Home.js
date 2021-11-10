@@ -89,60 +89,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <section class="page-section bg-dark text-white mb-0" id="about">
-                <div class="container">
-                    <div class="text-center">
-                        <h2 class="page-section-heading d-inline-block text-white"
-                            style={{ 'font-family': 'Kaushan Script' }}>ABOUT</h2>
-                    </div>
-                    <div class="divider-custom divider-light">
-                        <div class="divider-custom-line"></div>
-                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                        <div class="divider-custom-line"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 ml-auto">
-                            <div class="wrap lead" style={{ 'font-family': 'Ubuntu' }}>This is a website which will
-                                ease the recruitment process for the clubs and moreover it will help them manage their
-                                activities and also it will help club heads to modify the club database of their respective
-                                clubs.</div>
-                        </div>
-                        <div class="col-lg-4 mr-auto mt-5 mt-lg-0">
-                            <p class="wrap lead" style={{ 'font-family': 'Ubuntu' }}>This website will also help
-                                outsiders to know about clubs of IIITMG so that they can decide which club is better for them
-                                according to their interests so that they can apply for it. </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="page-section" id="contact">
-                <div class="container">
-                    <div class="text-center">
-                        <h2 class="page-section-heading d-inline-block text-secondary mb-0"
-                            style={{ 'font-family': 'Kaushan Script' }}>CONTACT</h2>
-                    </div>
-                    <div class="divider-custom">
-                        <div class="divider-custom-line"></div>
-                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                        <div class="divider-custom-line"></div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-lg-4">
-                            <div class="d-flex flex-column align-items-center">
-                                <div class="icon-contact mb-3"><i class="fas fa-mobile-alt"></i></div>
-                                <div class="text-muted">Contact Number</div>
-                                <div class="lead font-weight-bold">0123456789</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="d-flex flex-column align-items-center">
-                                <div class="icon-contact mb-3"><i class="fas fa-globe"></i></div>
-                                <div class="text-muted">Website</div><a class="lead font-weight-bold" href="">Visit Us</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+           
         </>
     )
 };
