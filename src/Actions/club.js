@@ -1,7 +1,7 @@
 import  * as api from '../Api/index';
 import * as actionTypes  from '../Constants/actionTypes';
 
-const getClubs = async (dispatch) => {
+const getClubs = () => async (dispatch) => {
 
     try {
         const { data } = await api.getClubs();
@@ -16,11 +16,12 @@ const getClubs = async (dispatch) => {
         console.log(error);
     }
 
-} 
+};
 
-const getClub = async (dispatch) =>{
-    try{
-        const { data } = await api.getClub();
+const getClub = (clubId) => async (dispatch) =>{
+    
+    try {
+        const { data } = await api.getClub(clubId);
         const action = {
             type: actionTypes.CLUB,
             payload: data.club
@@ -28,16 +29,15 @@ const getClub = async (dispatch) =>{
     
         dispatch(action);
     }
-    catch (error)
-    {
+    catch (error) {
         console.log(error);
     }
-}
+};
 
-const patchClub = (updateInfo) => async (dispatch) => {
+const patchClub = (clubId, updateInfo) => async (dispatch) => {
 
     try {
-        const { data } = await api.patchClub(updateInfo);
+        const { data } = await api.patchClub(clubId, updateInfo);
         const action = {
             type: actionTypes.PATCH,
             payload: data
@@ -48,12 +48,12 @@ const patchClub = (updateInfo) => async (dispatch) => {
         console.log(error);
     }
 
-}
+};
 
-const postEvent = (newEvent) => async (dispatch) => {
+const postEvent = (clubId, newEvent) => async (dispatch) => {
 
     try {
-        const { data } = await api.postEvent(newEvent);
+        const { data } = await api.postEvent(clubId, newEvent);
         const action = {
             type: actionTypes.EVENT,
             payload: data
@@ -64,12 +64,12 @@ const postEvent = (newEvent) => async (dispatch) => {
         console.log(error);
     }
 
-}
+};
 
-const postApproval = (Approval) => async (dispatch) => {
+const postApproval = (clubId, approval) => async (dispatch) => {
 
     try {
-        const { data } = await api.postApproval(Approval);
+        const { data } = await api.postApproval(clubId, approval);
         const action = {
             type: actionTypes.APPROVAL,
             payload: data
@@ -80,12 +80,12 @@ const postApproval = (Approval) => async (dispatch) => {
         console.log(error);
     }
 
-}
+};
 
-const removeMember = (student) => async (dispatch) => {
+const removeMember = (clubId, studentId) => async (dispatch) => {
 
     try {
-        const { data } = await api.removeMember(student);
+        const { data } = await api.removeMember(clubId, studentId);
         const action = {
             type: actionTypes.REMOVE,
             payload: data
@@ -96,5 +96,4 @@ const removeMember = (student) => async (dispatch) => {
         console.log(error);
     }
 
-}
-
+};
