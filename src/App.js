@@ -6,7 +6,7 @@ import Club from './Components/Club/Club';
 const App = () => {
   return (
     <div className="App">
-      <Club name="Uthan" description="hello"/>
+      <Home />
       <Footer />
     </div>
   );
