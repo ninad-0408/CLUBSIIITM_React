@@ -71,6 +71,7 @@ CALLBACK_URL = RETRACTED
     		<li>MongoDB</li>
 </ul>
 
+<p> Backend Repo Url : https://github.com/ninad-0408/CLUBSIIITM_Server 
 <p id="team-members"></p>
 
 ## Team Members
@@ -88,7 +89,6 @@ CALLBACK_URL = RETRACTED
 	<img src="https://github.com/ninad-0408.png" width="60px">
 </a>
 </p>
-<p> Backend Repo Url : https://github.com/ninad-0408/CLUBSIIITM_Server 
 <p align="center">
 		<a href="https://github.com/akshat45">Akshat Gupta</a> •
 		<a href="https://github.com/jayraikhere">Jay Raikhere</a> 
