@@ -55,8 +55,8 @@ export const postEvent = (clubId, newEvent) => async (dispatch) => {
     try {
         const { data } = await api.postEvent(clubId, newEvent);
         const action = {
-            type: actionTypes.NEWEVENT,
-            payload: data
+            type: actionTypes.EVENT,
+            payload: data.newEvent
         }
 
         dispatch(action);
@@ -80,6 +80,23 @@ export const postApproval = (clubId, approval) => async (dispatch) => {
         console.log(error);
     }
 
+};
+
+export const getClubApprovals = (clubId) => async (dispatch) => {
+
+    try {
+        const { data } = await api.getClubApprovals(clubId);
+        const action = {
+            type: actionTypes.APPROVALS,
+            payload: data.approvals
+        }
+
+        dispatch(action);
+        
+    } catch (error) {
+        console.log(error);
+    }
+    
 };
 
 export const removeMember = (clubId, studentId) => async (dispatch) => {
