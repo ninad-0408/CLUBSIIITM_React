@@ -1,7 +1,7 @@
-import  * as api from '../Api/index';
-import * as actionTypes  from '../Constants/actionTypes';
+import * as api from '../Api/index';
+import * as actionTypes from '../Constants/actionTypes';
 
-const getClubs = () => async (dispatch) => {
+export const getClubs = () => async (dispatch) => {
 
     try {
         const { data } = await api.getClubs();
@@ -9,24 +9,24 @@ const getClubs = () => async (dispatch) => {
             type: actionTypes.CLUBS,
             payload: data.clubs
         }
-    
+
         dispatch(action);
-        
+
     } catch (error) {
         console.log(error);
     }
 
 };
 
-const getClub = (clubId) => async (dispatch) =>{
-    
+export const getClub = (clubId) => async (dispatch) => {
+
     try {
         const { data } = await api.getClub(clubId);
         const action = {
             type: actionTypes.CLUB,
             payload: data.club
         }
-    
+
         dispatch(action);
     }
     catch (error) {
@@ -34,13 +34,13 @@ const getClub = (clubId) => async (dispatch) =>{
     }
 };
 
-const patchClub = (clubId, updateInfo) => async (dispatch) => {
+export const patchClub = (clubId, updateInfo) => async (dispatch) => {
 
     try {
         const { data } = await api.patchClub(clubId, updateInfo);
         const action = {
-            type: actionTypes.PATCH,
-            payload: data
+            type: actionTypes.CLUB,
+            payload: data.club
         }
 
         dispatch(action);
@@ -50,12 +50,12 @@ const patchClub = (clubId, updateInfo) => async (dispatch) => {
 
 };
 
-const postEvent = (clubId, newEvent) => async (dispatch) => {
+export const postEvent = (clubId, newEvent) => async (dispatch) => {
 
     try {
         const { data } = await api.postEvent(clubId, newEvent);
         const action = {
-            type: actionTypes.EVENT,
+            type: actionTypes.NEWEVENT,
             payload: data
         }
 
@@ -66,7 +66,7 @@ const postEvent = (clubId, newEvent) => async (dispatch) => {
 
 };
 
-const postApproval = (clubId, approval) => async (dispatch) => {
+export const postApproval = (clubId, approval) => async (dispatch) => {
 
     try {
         const { data } = await api.postApproval(clubId, approval);
@@ -82,7 +82,7 @@ const postApproval = (clubId, approval) => async (dispatch) => {
 
 };
 
-const removeMember = (clubId, studentId) => async (dispatch) => {
+export const removeMember = (clubId, studentId) => async (dispatch) => {
 
     try {
         const { data } = await api.removeMember(clubId, studentId);

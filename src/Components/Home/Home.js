@@ -1,8 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
 
     const temp = "google.com";
+
+    const clubs = useSelector(state => state.clubs);
+
+    console.log(clubs);
 
     return (
         <>
