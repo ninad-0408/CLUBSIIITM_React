@@ -19,6 +19,14 @@ const App = () => {
         dispatch(getUpcomingEvents());
     }, [dispatch]);
 
+    const home={
+        home:true,
+        club:false
+    }
+    const club={
+        home:false,
+        club:true
+    }
     return (
         <BrowserRouter>
             <div className="App">
