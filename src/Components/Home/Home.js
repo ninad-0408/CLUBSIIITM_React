@@ -1,23 +1,25 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import RenderClub from './RenderClub';
+import Loader from '../Loader/Loader';
+
 const Home = () => {
 
-    const temp = "google.com";
+    const temp =null;
 
     const clubs = useSelector(state => state.clubs);
-
-    console.log(clubs);
-
+    const upcomingevents = useSelector(state => state.upcomingevents)
+    
     return (
         <>
-        <header class="masthead bg-light text-white text-center" id="page-top">
-            <div class="container d-flex align-items-center flex-column">
-                <img class="masthead-avatar mb-5" src="https://i.imgur.com/eQrt2zc.png" alt="" />
-                <h1 class="masthead-heading mb-0 text-dark" style={{ 'font-family': 'Kaushan Script' }}>IIITM GWALIOR
-                </h1>
-                <p class="pre-wrap masthead-subheading font-weight-light mb-0"></p>
-            </div>
+            <header class="masthead bg-light text-white text-center" id="page-top">
+                <div class="container d-flex align-items-center flex-column">
+                    <img class="masthead-avatar mb-5" src="https://i.imgur.com/eQrt2zc.png" alt="" />
+                    <h1 class="masthead-heading mb-0 text-dark" style={{ 'font-family': 'Kaushan Script' }}>IIITM GWALIOR
+                    </h1>
+                    <p class="pre-wrap masthead-subheading font-weight-light mb-0"></p>
+                </div>
             </header>
             <div class="jumbotron bg-dark text-white">
                 <div class="container">
@@ -53,17 +55,7 @@ const Home = () => {
                         <div class="divider-custom-line bg-secondary"></div>
                     </div>
                     <div class="row">
-                            // forloop
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <a href={temp}>
-                                <div class="portfolio-item mx-auto">
-                                    <img class="img-fluid" style={{ 'width': '25em' }} src={temp} alt="not found" />
-                                    <h2 class="text-center mt-2" style={{ 'font-family': 'Ubuntu' }}>
-                                    // Club name
-                                    </h2>
-                                </div>
-                            </a>
-                        </div>
+                    {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Cultural" && <RenderClub club={p[1]} />) : <Loader />}
                     </div>
                 </div>
             </section>
@@ -79,22 +71,12 @@ const Home = () => {
                         <div class="divider-custom-line"></div>
                     </div>
                     <div class="row">
-                        // Forloop
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <a href={temp}>
-                                <div class="portfolio-item mx-auto">
-                                    <img class="img-fluid" style={{ 'width': '25em' }} src={temp} alt="not found" />
-                                    <h2 class="text-center mt-2" style={{ 'font-family': 'Ubuntu' }}>
-                                    //technical club name
-                                    </h2>
-                                </div>
-                            </a>
-                        </div>
+                    {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Technical" && <RenderClub club={p[1]} />) : <Loader />}
                     </div>
                 </div>
             </section>
 
-           
+
         </>
     )
 };
