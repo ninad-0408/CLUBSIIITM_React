@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { baseUrl } from '../../Constants/baseUrl';
 import Loader from '../Loader/Loader';
@@ -15,7 +16,7 @@ const RenderClub = ({ club }) => {
 
     return (
         <div class="col-md-6 col-lg-4 mb-5" key={club._id}>
-            <a href={`club/${club._id}`}>
+            <Link to={`club/${club._id}`}>
                 <div class="portfolio-item mx-auto">
                     {!image && <Loader />}
                     <div style={hide}>
@@ -25,7 +26,7 @@ const RenderClub = ({ club }) => {
                         {club.name}
                     </h2>
                 </div>
-            </a>
+            </Link>
         </div>
     )
 };

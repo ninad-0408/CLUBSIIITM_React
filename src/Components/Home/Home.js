@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 
 import RenderClub from './RenderClub';
 import Loader from '../Loader/Loader';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
     const clubs = useSelector(state => state.clubs);
-    const upcomingevents = useSelector(state => state.upcomingevents)
+    const upcomingevents = useSelector(state => state.upcomingevents);
 
     return (
         <>
@@ -32,9 +33,9 @@ const Home = () => {
                                     upcomingevents.length ?
                                     upcomingevents.map((event) => (
                                         <div class="col-12 col-sm-4 mt-4 mt-md-2 d-md-block">
-                                            <a href={event._id}>
+                                            <Link to={`/event/${event._id}`}>
                                                 {event.name}
-                                            </a>
+                                            </Link>
                                         </div>
                                     )) : 'No Upcoming Events...'
                                 }
