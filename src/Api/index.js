@@ -1,8 +1,7 @@
 import axios from 'axios';
+import { baseUrl } from '../Constants/baseUrl';
 
-const url = 'https://clubs-iiitm-server.herokuapp.com';
-
-const API = axios.create({ baseURL: url });
+const API = axios.create({ baseURL: baseUrl });
 
 export const getClubs = () => API.get('/club');
 export const getClub = (clubId) => API.get(`/club/${clubId}`);
