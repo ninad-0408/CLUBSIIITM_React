@@ -51,7 +51,7 @@ const Footer = () => {
                         <div class="col-lg-4">
                             <div class="d-flex flex-column align-items-center">
                                 <div class="icon-contact mb-3"><i class="fas fa-globe"></i></div>
-                                <div class="text-muted">Website</div><a class="lead font-weight-bold" href="">Visit Us</a>
+                                <div class="text-muted">Website</div><a class="lead font-weight-bold" href='http://www.iiitm.ac.in/index.php/en/'>Visit Us</a>
                             </div>
                         </div>
                     </div>

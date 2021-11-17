@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import RenderClub from './RenderClub';
 import Loader from '../Loader/Loader';
-import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 const Home = () => {
 
@@ -76,8 +77,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-
+            <Footer />
         </>
     )
 };

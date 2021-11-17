@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Home from './Components/Home/Home';
-import Footer from './Components/Footer/Footer';
 import Club from './Components/Club/Club';
 import Navbar from './Components/Navbar/Navbar';
 
 import { getClubs } from './Actions/club';
 import { getUpcomingEvents } from './Actions/event';
+import Profile from './Components/Profile/Profile';
 
 const App = () => {
 
@@ -26,12 +26,14 @@ const App = () => {
                     <Route path='/' exact>
                         <Navbar home />
                         <Home />
-                        <Footer />
                     </Route>
                     <Route path='/club/:clubId'>
                         <Navbar club />
                         <Club />
-                        <Footer />
+                    </Route>
+                    <Route path='/student/:studentId'>
+                        <Navbar />
+                        <Profile />
                     </Route>
                 </Switch>
             </div>

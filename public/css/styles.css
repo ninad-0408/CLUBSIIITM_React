@@ -9031,6 +9031,17 @@ form .row:first-child .floating-label-form-group {
 	padding-bottom: 4.5rem
 }
 
+a.colordark {
+	color: #41415a;
+	text-decoration: none;
+	background-color: transparent
+}
+a.colordark:hover {
+	color: #616183;
+	text-decoration: none;
+	background-color: transparent
+}
+
 .page-section-heading {
 	text-align: center
 }
