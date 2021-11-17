@@ -45,3 +45,18 @@ export const delEvent = (eventId) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const getUpcomingEvents = (eventId) => async (dispatch) => {
+
+    try {
+        const { data } = await api.getUpcomingEvents(eventId);
+        const action = {
+            type: actionTypes.UPCOMINGEVENTS,
+            payload: data.events
+        }
+
+        dispatch(action);
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import Home from './Components/Home/Home';
 import Footer from './Components/Footer/Footer';
 import Club from './Components/Club/Club';
+
 import { getClubs } from './Actions/club';
+import { getUpcomingEvents } from './Actions/event';
 
 const App = () => {
 
@@ -12,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getClubs());
+    dispatch(getUpcomingEvents());
   },[]);
 
   return (

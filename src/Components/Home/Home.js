@@ -6,11 +6,9 @@ import Loader from '../Loader/Loader';
 
 const Home = () => {
 
-    const temp =null;
-
     const clubs = useSelector(state => state.clubs);
     const upcomingevents = useSelector(state => state.upcomingevents)
-    
+
     return (
         <>
             <header class="masthead bg-light text-white text-center" id="page-top">
@@ -24,25 +22,27 @@ const Home = () => {
             <div class="jumbotron bg-dark text-white">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-lg-4">
                             <h1 class="masthead-heading mb-0 text-center" style={{ 'font-family': 'Kaushan Script' }}>
                                 Upcoming Events:</h1>
                         </div>
                         <div class="col">
-                            <div class="row h4">
-                        // Forloop
-                                <div class="col mt-4 mt-md-2 d-md-block">
-                                    <a href={temp}>
-                                    // event name
-                                    </a>
-                                </div>
+                            <div class="row align-items-centre h4">
+                                {
+                                    upcomingevents.length ?
+                                    upcomingevents.map((event) => (
+                                        <div class="col-12 col-sm-4 mt-4 mt-md-2 d-md-block">
+                                            <a href={event._id}>
+                                                {event.name}
+                                            </a>
+                                        </div>
+                                    )) : 'No Upcoming Events...'
+                                }
                             </div>
                         </div>
 
                     </div>
                 </div>
-
-
             </div>
 
             <section class="page-section portfolio" id="cultural">
@@ -55,7 +55,7 @@ const Home = () => {
                         <div class="divider-custom-line bg-secondary"></div>
                     </div>
                     <div class="row">
-                    {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Cultural" && <RenderClub club={p[1]} />) : <Loader />}
+                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Cultural" && <RenderClub club={p[1]} />) : <Loader />}
                     </div>
                 </div>
             </section>
@@ -71,7 +71,7 @@ const Home = () => {
                         <div class="divider-custom-line"></div>
                     </div>
                     <div class="row">
-                    {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Technical" && <RenderClub club={p[1]} />) : <Loader />}
+                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Technical" && <RenderClub club={p[1]} />) : <Loader />}
                     </div>
                 </div>
             </section>
