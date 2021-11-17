@@ -1,0 +1,1 @@
+export const baseUrl = 'https://clubs-iiitm-server.herokuapp.com';

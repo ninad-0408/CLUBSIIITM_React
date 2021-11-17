@@ -1,7 +1,7 @@
-import  * as api from '../Api/index';
-import * as actionTypes  from '../Constants/actionTypes';
+import * as api from '../Api/index';
+import * as actionTypes from '../Constants/actionTypes';
 
-const getClubs = async (dispatch) => {
+export const getClubs = () => async (dispatch) => {
 
     try {
         const { data } = await api.getClubs();
@@ -9,38 +9,38 @@ const getClubs = async (dispatch) => {
             type: actionTypes.CLUBS,
             payload: data.clubs
         }
-    
+
         dispatch(action);
-        
+
     } catch (error) {
         console.log(error);
     }
 
-} 
+};
 
-const getClub = async (dispatch) =>{
-    try{
-        const { data } = await api.getClub();
+export const getClub = (clubId) => async (dispatch) => {
+
+    try {
+        const { data } = await api.getClub(clubId);
         const action = {
             type: actionTypes.CLUB,
             payload: data.club
         }
-    
+
         dispatch(action);
     }
-    catch (error)
-    {
+    catch (error) {
         console.log(error);
     }
-}
+};
 
-const patchClub = (updateInfo) => async (dispatch) => {
+export const patchClub = (clubId, updateInfo) => async (dispatch) => {
 
     try {
-        const { data } = await api.patchClub(updateInfo);
+        const { data } = await api.patchClub(clubId, updateInfo);
         const action = {
-            type: actionTypes.PATCH,
-            payload: data
+            type: actionTypes.CLUB,
+            payload: data.club
         }
 
         dispatch(action);
@@ -48,15 +48,15 @@ const patchClub = (updateInfo) => async (dispatch) => {
         console.log(error);
     }
 
-}
+};
 
-const postEvent = (newEvent) => async (dispatch) => {
+export const postEvent = (clubId, newEvent) => async (dispatch) => {
 
     try {
-        const { data } = await api.postEvent(newEvent);
+        const { data } = await api.postEvent(clubId, newEvent);
         const action = {
             type: actionTypes.EVENT,
-            payload: data
+            payload: data.newEvent
         }
 
         dispatch(action);
@@ -64,12 +64,12 @@ const postEvent = (newEvent) => async (dispatch) => {
         console.log(error);
     }
 
-}
+};
 
-const postApproval = (Approval) => async (dispatch) => {
+export const postApproval = (clubId, approval) => async (dispatch) => {
 
     try {
-        const { data } = await api.postApproval(Approval);
+        const { data } = await api.postApproval(clubId, approval);
         const action = {
             type: actionTypes.APPROVAL,
             payload: data
@@ -80,12 +80,29 @@ const postApproval = (Approval) => async (dispatch) => {
         console.log(error);
     }
 
-}
+};
 
-const removeMember = (student) => async (dispatch) => {
+export const getClubApprovals = (clubId) => async (dispatch) => {
 
     try {
-        const { data } = await api.removeMember(student);
+        const { data } = await api.getClubApprovals(clubId);
+        const action = {
+            type: actionTypes.APPROVALS,
+            payload: data.approvals
+        }
+
+        dispatch(action);
+        
+    } catch (error) {
+        console.log(error);
+    }
+    
+};
+
+export const removeMember = (clubId, studentId) => async (dispatch) => {
+
+    try {
+        const { data } = await api.removeMember(clubId, studentId);
         const action = {
             type: actionTypes.REMOVE,
             payload: data
@@ -96,5 +113,4 @@ const removeMember = (student) => async (dispatch) => {
         console.log(error);
     }
 
-}
-
+};

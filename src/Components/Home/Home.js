@@ -1,41 +1,49 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import RenderClub from './RenderClub';
+import Loader from '../Loader/Loader';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
-    const temp = "google.com";
+    const clubs = useSelector(state => state.clubs);
+    const upcomingevents = useSelector(state => state.upcomingevents);
 
     return (
         <>
-        <header class="masthead bg-light text-white text-center" id="page-top">
-            <div class="container d-flex align-items-center flex-column">
-                <img class="masthead-avatar mb-5" src="https://i.imgur.com/eQrt2zc.png" alt="" />
-                <h1 class="masthead-heading mb-0 text-dark" style={{ 'font-family': 'Kaushan Script' }}>IIITM GWALIOR
-                </h1>
-                <p class="pre-wrap masthead-subheading font-weight-light mb-0"></p>
-            </div>
+            <header class="masthead bg-light text-white text-center" id="page-top">
+                <div class="container d-flex align-items-center flex-column">
+                    <img class="masthead-avatar mb-5" src="https://i.imgur.com/eQrt2zc.png" alt="" />
+                    <h1 class="masthead-heading mb-0 text-dark" style={{ 'font-family': 'Kaushan Script' }}>IIITM GWALIOR
+                    </h1>
+                    <p class="pre-wrap masthead-subheading font-weight-light mb-0"></p>
+                </div>
             </header>
             <div class="jumbotron bg-dark text-white">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-lg-4">
                             <h1 class="masthead-heading mb-0 text-center" style={{ 'font-family': 'Kaushan Script' }}>
                                 Upcoming Events:</h1>
                         </div>
                         <div class="col">
-                            <div class="row h4">
-                        // Forloop
-                                <div class="col mt-4 mt-md-2 d-md-block">
-                                    <a href={temp}>
-                                    // event name
-                                    </a>
-                                </div>
+                            <div class="row align-items-centre h4">
+                                {
+                                    upcomingevents.length ?
+                                    upcomingevents.map((event) => (
+                                        <div class="col-12 col-sm-4 mt-4 mt-md-2 d-md-block">
+                                            <Link to={`/event/${event._id}`}>
+                                                {event.name}
+                                            </Link>
+                                        </div>
+                                    )) : 'No Upcoming Events...'
+                                }
                             </div>
                         </div>
 
                     </div>
                 </div>
-
-
             </div>
 
             <section class="page-section portfolio" id="cultural">
@@ -48,17 +56,7 @@ const Home = () => {
                         <div class="divider-custom-line bg-secondary"></div>
                     </div>
                     <div class="row">
-                            // forloop
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <a href={temp}>
-                                <div class="portfolio-item mx-auto">
-                                    <img class="img-fluid" style={{ 'width': '25em' }} src={temp} alt="not found" />
-                                    <h2 class="text-center mt-2" style={{ 'font-family': 'Ubuntu' }}>
-                                    // Club name
-                                    </h2>
-                                </div>
-                            </a>
-                        </div>
+                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Cultural" && <RenderClub club={p[1]} />) : <Loader />}
                     </div>
                 </div>
             </section>
@@ -74,22 +72,12 @@ const Home = () => {
                         <div class="divider-custom-line"></div>
                     </div>
                     <div class="row">
-                        // Forloop
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <a href={temp}>
-                                <div class="portfolio-item mx-auto">
-                                    <img class="img-fluid" style={{ 'width': '25em' }} src={temp} alt="not found" />
-                                    <h2 class="text-center mt-2" style={{ 'font-family': 'Ubuntu' }}>
-                                    //technical club name
-                                    </h2>
-                                </div>
-                            </a>
-                        </div>
+                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Technical" && <RenderClub club={p[1]} />) : <Loader />}
                     </div>
                 </div>
             </section>
 
-           
+
         </>
     )
 };
