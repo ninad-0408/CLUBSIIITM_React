@@ -15,3 +15,5 @@ export const getUpcomingEvents = () => API.get('/event');
 export const getEvent = (eventId) => API.get(`/event/${eventId}`);
 export const patchEvent = (eventId, updateInfo) => API.patch(`/event/${eventId}`, updateInfo);
 export const delEvent = (eventId) => API.delete(`/event/${eventId}`);
+
+export const getStudent = (studentId) => API.get(`/student/${studentId}`); 
