@@ -2,10 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 
+import { getAuth } from '../../Actions/auth';
+
 const Navbar = ({ home, club }) => {
 
-    const googleSuccess = (res) => {
-        
+    const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
+
+    const googleSuccess = async (res) => {
+        const profile = res.profile;
+        const token = res.tokenId;
+
+        await getAuth(profile, token);
     }
 
     const googleFailure = (error) => {
@@ -43,21 +50,30 @@ const Navbar = ({ home, club }) => {
                                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                         href="#contact" style={{ color: "white" }}>CONTACT</a>
                                     </li>
-                                    <GoogleLogin
-                                        clientId='1062251839932-k1o0jo6frah99qlv3hod50b5hsvvtlep.apps.googleusercontent.com'
-                                        render={(renderProps) => {
-                                            return (
-                                                <li class="nav-item mx-0 mx-lg-1">
-                                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" onClick={renderProps.onClick}
-                                                    style={{'color': 'white'}, {'cursor': 'pointer'}}>Login</a>
-                                                </li>
-                                            )
+                                    {
+                                        user ?
+                                            <li class="nav-item mx-0 mx-lg-1">
+                                                <Link class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                                    to={`/student/${user._id}`} style={{ color: 'white' }}>
+                                                    User: {user.name}
+                                                </Link>
+                                            </li>
+                                            : <GoogleLogin
+                                                clientId='1062251839932-k1o0jo6frah99qlv3hod50b5hsvvtlep.apps.googleusercontent.com'
+                                                render={(renderProps) => {
+                                                    return (
+                                                        <li class="nav-item mx-0 mx-lg-1">
+                                                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" onClick={renderProps.onClick}
+                                                                style={{ 'color': 'white' }, { 'cursor': 'pointer' }}>Login</a>
+                                                        </li>
+                                                    )
 
-                                        }}
-                                        onSuccess={googleSuccess}
-                                        onFailure={googleFailure}
-                                        cookiePolicy='single_host_origin'
-                                    />
+                                                }}
+                                                onSuccess={googleSuccess}
+                                                onFailure={googleFailure}
+                                                cookiePolicy='single_host_origin'
+                                            />
+                                    }
                                 </ul>
                             </div> : club ? <div class="collapse navbar-collapse" id="navbarResponsive">
 

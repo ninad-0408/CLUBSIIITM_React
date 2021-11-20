@@ -1,17 +1,11 @@
 import * as api from '../Api/index';
-import * as actionTypes from '../Constants/actionTypes';
 
-export const getAuth = (profile, token) => async (dispatch) => {
+export const getAuth = async (profile, token) => {
     
     try {
         const { data } = await api.getAuth(profile);
-        localStorage.setItem('profile', data.profile);
-        const action = {
-            type: actionTypes.AUTH,
-            payload: data.profile
-        }
-
-        dispatch(action);
+        localStorage.setItem('cookie', JSON.stringify({ profile: data.profile, token }));
+        
     } catch (error) {
         console.log(error);
     }
