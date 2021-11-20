@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar/Navbar';
 import { getClubs } from './Actions/club';
 import { getUpcomingEvents } from './Actions/event';
 import Profile from './Components/Profile/Profile';
+import Event from './Components/Event/Event';
 
 const App = () => {
 
@@ -32,7 +33,12 @@ const App = () => {
                         <Club />
                     </Route>
                     <Route path='/student/:studentId'>
+                        <Navbar />
                         <Profile />
+                    </Route>
+                    <Route path='/event/:eventId'>
+                        <Navbar />
+                        <Event />
                     </Route>
                 </Switch>
             </div>

@@ -9,7 +9,7 @@ const Navbar = ({ home, club }) => {
     const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
 
     const googleSuccess = async (res) => {
-        const profile = res.profile;
+        const profile = res.profileObj;
         const token = res.tokenId;
 
         await getAuth(profile, token);

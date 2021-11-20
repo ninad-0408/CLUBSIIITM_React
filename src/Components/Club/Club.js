@@ -114,7 +114,7 @@ const Club = () => {
                             {
                                 club.eventids.length ? club.eventids.map((event) => (
                                     <div class="col-md-6 col-lg-4 mb-5">
-                                        <Link to={`/event/${event.image}`}>
+                                        <Link to={`/event/${event._id}`}>
                                             <div class="portfolio-item mx-auto">
                                                 <img class="img-fluid" src={`${baseUrl}/image/${event.image}`} alt="not found" />
                                                 <h2 class="text-center mt-2" style={{ 'font-family': 'Ubuntu, sans-serif' }}>
