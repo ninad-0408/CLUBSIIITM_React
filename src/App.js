@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar/Navbar';
 import { getClubs } from './Actions/club';
 import { getUpcomingEvents } from './Actions/event';
 import Profile from './Components/Profile/Profile';
+import Event from './Components/Event/Event';
 
 const App = () => {
 
@@ -19,14 +20,6 @@ const App = () => {
         dispatch(getUpcomingEvents());
     }, [dispatch]);
 
-    const home={
-        home:true,
-        club:false
-    }
-    const club={
-        home:false,
-        club:true
-    }
     return (
         <BrowserRouter>
             <div className="App">
@@ -42,6 +35,10 @@ const App = () => {
                     <Route path='/student/:studentId'>
                         <Navbar />
                         <Profile />
+                    </Route>
+                    <Route path='/event/:eventId'>
+                        <Navbar />
+                        <Event />
                     </Route>
                 </Switch>
             </div>

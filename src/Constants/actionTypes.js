@@ -6,3 +6,4 @@ export const APPROVAL = "APPROVAL";
 export const APPROVALS = "APPROVALS";
 export const REMOVE = "REMOVE";
 export const UPCOMINGEVENTS = "UPCOMINGEVENTS";
+export const AUTH = "AUTH";

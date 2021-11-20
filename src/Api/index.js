@@ -3,6 +3,19 @@ import { baseUrl } from '../Constants/baseUrl';
 
 const API = axios.create({ baseURL: baseUrl });
 
+API.interceptors.request.use((req) => {
+    const token = JSON.parse(localStorage.getItem('cookie'))?.token;
+    
+    if(token)
+    {
+        req.headers.authorization = `Bearer ${token}`;
+    }
+
+    return req;
+});
+
+export const getAuth = (profile) => API.post('/auth', profile);
+
 export const getClubs = () => API.get('/club');
 export const getClub = (clubId) => API.get(`/club/${clubId}`);
 export const getClubApprovals = (clubId) => API.get(`/club/${clubId}/approvals`);

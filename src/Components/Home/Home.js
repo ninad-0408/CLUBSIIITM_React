@@ -32,13 +32,13 @@ const Home = () => {
                             <div class="row align-items-centre h4">
                                 {
                                     upcomingevents.length ?
-                                    upcomingevents.map((event) => (
-                                        <div class="col-12 col-sm-4 mt-4 mt-md-2 d-md-block">
-                                            <Link to={`/event/${event._id}`}>
-                                                {event.name}
-                                            </Link>
-                                        </div>
-                                    )) : 'No Upcoming Events...'
+                                        upcomingevents.map((event) => (
+                                            <div class="col-12 col-sm-4 mt-4 mt-md-2 d-md-block">
+                                                <Link to={`/event/${event._id}`}>
+                                                    {event.name}
+                                                </Link>
+                                            </div>
+                                        )) : 'No Upcoming Events...'
                                 }
                             </div>
                         </div>
