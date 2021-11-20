@@ -1,5 +1,5 @@
-import * as actionTypes from '../Constants/actionTypes';
 import _ from 'lodash';
+import * as actionTypes from '../Constants/actionTypes';
 
 const reducer = (state = {}, action) => {
 

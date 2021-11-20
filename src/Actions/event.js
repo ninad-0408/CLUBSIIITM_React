@@ -5,6 +5,7 @@ export const getEvent = (eventId) => async (dispatch) => {
 
     try {
         const { data } = await api.getEvent(eventId);
+        console.log(data);
         const action = {
             type: actionTypes.EVENT,
             payload: data.event
