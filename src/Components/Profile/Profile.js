@@ -11,19 +11,24 @@ import Footer from '../Footer/Footer';
 const Profile = () => {
 
     const dispatch = useDispatch();
-    const students = useSelector(state => state.student);
+    const students = useSelector(state => state.students);
     const { studentId } = useParams();
+    // console.log(studentId);
     const student = students[studentId];
-    // console.log(clubs);
+    console.log(student);
 
     useEffect(() => {
-        // if (!(student !== undefined))
+        if (!(student !== undefined))
             dispatch(getStudent(studentId));
-    }, [dispatch, studentId]);
+    }, [dispatch]);
 
     return (
+        
+        ( student !== undefined ) ?
         <>
-            <div class="container-fluid text-center mt-3" id='backgroundimage'>
+         <div className="profile" id="profile">
+  
+            <div class="container-fluid text-center mt-3" id='backgroundimage   '>
                 <h1>
                     {student.name}
                 </h1>
@@ -33,20 +38,20 @@ const Profile = () => {
                     <div class="container font-weight-bold d-4">
                         {student.bio}
                     </div>
-                    <div class="text-center font-weight-light">- student name
+                    <div class="text-center font-weight-light">- {student.name}
                     </div>
                 </div>
 
                 <div class="mt-4 h4">
                     <span class="font-weight-bold">Email Address:</span>
-                    <a href="mailto:<%=student.email%>">
+                    <a href={`mailto:${student.email}`}>
                         {student.email}
                     </a>
                 </div>
 
                 <div class="mt-4 h4">
                     <span class="font-weight-bold">LinkedIn:</span>
-                    <a href="https://www.linkedin.com/in/<%=student.linkedin%>">
+                    <a href={`https://www.linkedin.com/in/${student.linkedin}`}>
                         {student.linkedin}
                     </a>
                 </div>
@@ -71,7 +76,8 @@ const Profile = () => {
                     {student.batch}
                 </div>
             </div>
-        </>
+    </div>
+            </> : <Loader margin />
     )
 };
 

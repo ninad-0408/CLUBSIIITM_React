@@ -4,8 +4,8 @@ import * as actionTypes from '../Constants/actionTypes';
 export const getStudent = (studentId) => async (dispatch) => {
 
     try {
-        const  data  = await api.getStudent(studentId);
-        console.log(data.data.err);
+        const  {data}  = await api.getStudent(studentId);
+        console.log(data);
         const action = {
             type: actionTypes.STUDENT,
             payload: data.student
