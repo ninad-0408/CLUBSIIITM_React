@@ -3,6 +3,8 @@ import { baseUrl } from '../Constants/baseUrl';
 
 const API = axios.create({ baseURL: baseUrl });
 
+export const getAuth = (profile) => API.post('/auth', profile);
+
 export const getClubs = () => API.get('/club');
 export const getClub = (clubId) => API.get(`/club/${clubId}`);
 export const getClubApprovals = (clubId) => API.get(`/club/${clubId}/approvals`);

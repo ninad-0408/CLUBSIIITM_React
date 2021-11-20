@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { getClub } from '../../Actions/club';
+import { getClub, removeMember } from '../../Actions/club';
 import { baseUrl } from '../../Constants/baseUrl';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
 
 const Club = () => {
+
+    const [disabledRemove, setdisabledRemove] = useState([]);
 
     const dispatch = useDispatch();
     const clubs = useSelector(state => state.clubs);
@@ -17,7 +19,7 @@ const Club = () => {
     useEffect(() => {
         if (!(club !== undefined && club.achievements !== undefined))
             dispatch(getClub(clubId));
-    }, [dispatch, clubId]);
+    }, [dispatch]);
 
     const handleJoinClub = () => {
 
@@ -25,6 +27,8 @@ const Club = () => {
 
     const removeStudent = (studentId) => {
 
+        setdisabledRemove([...disabledRemove, studentId]);
+        dispatch(removeMember(clubId, studentId));
     };
 
     return (
@@ -144,7 +148,14 @@ const Club = () => {
                                             style={{ 'color': 'rgb(0,0,139)' }, { 'font-family': 'Ubuntu, sans-serif' }} class="col colordark">
                                             {member.name}
                                         </Link>
-                                        <button class="btn btn-danger" onClick={removeStudent(member._id)}>Remove</button>
+                                        {
+                                            (disabledRemove.indexOf(member._id) === -1) ?
+                                                <button class="btn btn-danger" onClick={() => removeStudent(member._id)}>Remove</button>
+                                                : <button class="btn btn-danger" disabled>
+                                                    <span class="spinner-border spinner-border-sm text-primary" role="status" aria-hidden="true"></span>
+                                                    Removing...
+                                                </button>
+                                        }
                                     </li>
                                 )) : 'No Current Events'
                             }
@@ -184,7 +195,7 @@ const Club = () => {
                     </section>
                 }
                 <Footer />
-            </> : <Loader />
+            </> : <Loader margin />
     )
 };
 
