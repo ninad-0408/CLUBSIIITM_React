@@ -66,10 +66,10 @@ export const postEvent = (clubId, newEvent) => async (dispatch) => {
 
 };
 
-export const postApproval = (clubId, approval) => async (dispatch) => {
+export const postApproval = (clubId) => async (dispatch) => {
 
     try {
-        const { data } = await api.postApproval(clubId, approval);
+        const { data } = await api.postApproval(clubId);
         const action = {
             type: actionTypes.APPROVAL,
             payload: data

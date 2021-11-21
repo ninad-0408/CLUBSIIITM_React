@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { getClub, getClubApprovals, removeMember } from '../../Actions/club';
+import { getClub, getClubApprovals, postApproval, removeMember } from '../../Actions/club';
 import { baseUrl } from '../../Constants/baseUrl';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
@@ -10,9 +10,9 @@ import Footer from '../Footer/Footer';
 const Club = () => {
 
     const [disabledRemove, setdisabledRemove] = useState([]);
-    
+
     const user = JSON.parse(localStorage.getItem('cookie')).profile;
-    
+
     const dispatch = useDispatch();
     const clubs = useSelector(state => state.clubs);
     const approvals = useSelector(state => state.approvals);
@@ -22,24 +22,36 @@ const Club = () => {
     const [admin, setadmin] = useState(false);
 
     useEffect(() => {
-        if(admin && approval === undefined)
-        dispatch(getClubApprovals(clubId));
+        if (admin && approval === undefined)
+            dispatch(getClubApprovals(clubId));
 
         if (club === undefined || club.presidentid === undefined)
-        dispatch(getClub(clubId)); 
-        
+            dispatch(getClub(clubId));
+
         setadmin((user?._id === club?.presidentid?._id));
-        
+
     }, [dispatch, club, user]);
 
     const handleJoinClub = () => {
-
+        dispatch(postApproval(clubId));
     };
 
     const removeStudent = (studentId) => {
 
         setdisabledRemove([...disabledRemove, studentId]);
         dispatch(removeMember(clubId, studentId));
+    };
+
+    const approveApproval = (approvalId) => {
+        
+    };
+
+    const meetApproval = (approvalId) => {
+
+    };
+
+    const declineApproval = (approvalId) => {
+
     };
 
     return (
@@ -57,7 +69,10 @@ const Club = () => {
                             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                             <div class="divider-custom-line"></div>
                         </div>
-                        <button type="submit" class="btn btn-success" onClick={handleJoinClub}>JOIN</button>
+                        {
+                            (club.memberids.filter((member) => member._id === user._id).length === 0) &&
+                            <button type="submit" class="btn btn-success" onClick={handleJoinClub}>JOIN</button>
+                        }
                     </div>
                 </header>
 
@@ -162,7 +177,7 @@ const Club = () => {
                                             style={{ 'color': 'rgb(0,0,139)' }, { 'font-family': 'Ubuntu, sans-serif' }} class="col colordark">
                                             {member.name}
                                         </Link>
-                                        {admin &&
+                                        {admin && (member._id !== user._id) &&
 
                                             ((disabledRemove.indexOf(member._id) === -1) ?
                                                 <button class="btn btn-danger" onClick={() => removeStudent(member._id)}>Remove</button>
@@ -179,7 +194,7 @@ const Club = () => {
                     </div>
                 </section >
 
-                {club.approvals?.length &&
+                {approval !== undefined && approval.length &&
                     <section class="page-section">
                         <div class="container">
                             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"
@@ -190,22 +205,26 @@ const Club = () => {
                                 <div class="divider-custom-line"></div>
                             </div>
                             <ul class="list-group">
-                    // for loop
-                                <li class="list-group-item row">
-                                    <a href="/student/<%= approvals[request].studentid._id %>/profile" class="col-xs-6 col-md-8"
-                                        style={{ 'color': 'darkblue' }, { 'font-family': 'Ubuntu, sans-serif' }}>
-                                        student name of approval
-                                    </a>
-                                    <div class="col-xs-6 col-md-4">
-                                        <a href="/approval/<%= approvals[request]._id %>/approve"
-                                            class="btn btn-success btn-sm">Approve</a>
-                                        <a href="/approval/<%= approvals[request]._id %>/meet"
-                                            class="btn btn-warning btn-sm">Schedule
-                                            Meet</a>
-                                        <a href="/approval/<%= approvals[request]._id %>/decline"
-                                            class="btn btn-danger btn-sm">Reject</a>
-                                    </div>
-                                </li>
+                                {
+                                    approval.length ? approval.map((app) => (
+                                        <li class="list-group-item row">
+                                            <Link to={`/student/${app.studentid._id}/profile`} class="col-xs-6 col-md-8 colordark"
+                                                style={{ 'color': 'darkblue' }, { 'font-family': 'Ubuntu, sans-serif' }}>
+                                                {app.studentid.name}
+                                            </Link>
+                                            <div class="col-xs-6 col-md-4">
+                                                <a role='button' onClick={() => approveApproval(app._id)}
+                                                    class="btn btn-success btn-sm">Approve</a>
+                                                <a role='button' onClick={() => meetApproval(app._id)}
+                                                    class="btn btn-warning btn-sm">Schedule
+                                                    Meet</a>
+                                                <a role='button' onClick={() => declineApproval(app._id)}
+                                                    class="btn btn-danger btn-sm">Reject</a>
+                                            </div>
+                                        </li>
+                                    ))
+                                        : 'No Pending Approvals'
+                                }
                             </ul>
                         </div>
                     </section>

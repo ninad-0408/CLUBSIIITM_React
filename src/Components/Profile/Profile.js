@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { getStudent } from '../../Actions/student';
 import Loader from '../Loader/Loader';
 
-
 const Profile = () => {
 
     const dispatch = useDispatch();
