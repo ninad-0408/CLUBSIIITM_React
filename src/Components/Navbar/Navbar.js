@@ -1,18 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 
 import { getAuth } from '../../Actions/auth';
+import { useSelector } from 'react-redux';
 
 const Navbar = ({ home, club }) => {
 
+    const history = useHistory();
+    const clubs = useSelector(state => state.clubs);
+    const { clubId } = useParams();
+
     const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
+    const [admin, setadmin] = useState(false);
+
+    useEffect(() => {
+        setadmin((clubs[clubId]?.presidentid?._id === user?._id));
+    }, [clubs, user]);
 
     const googleSuccess = async (res) => {
         const profile = res.profileObj;
         const token = res.tokenId;
 
         await getAuth(profile, token);
+        history.push('/');
     }
 
     const googleFailure = (error) => {
@@ -96,7 +107,13 @@ const Navbar = ({ home, club }) => {
                                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                         href="#contact" style={{ color: "white" }}>CONTACT</a>
                                     </li>
-                                    admin
+                                    {
+                                        admin &&
+                                        <li class="nav-item mx-0 mx-lg-1"><a
+                                            class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#"
+                                            style={{color: 'white'}}>Edit</a>
+                                        </li>
+                                    }
                                 </ul>
 
                             </div> : <div></div>

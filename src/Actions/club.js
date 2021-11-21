@@ -88,7 +88,10 @@ export const getClubApprovals = (clubId) => async (dispatch) => {
         const { data } = await api.getClubApprovals(clubId);
         const action = {
             type: actionTypes.APPROVALS,
-            payload: data.approvals
+            payload: {
+                approvals: data.approvals,
+                clubId: clubId
+            }
         }
 
         dispatch(action);

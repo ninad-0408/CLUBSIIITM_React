@@ -33,6 +33,7 @@ const App = () => {
                         <Club />
                     </Route>
                     <Route path='/student/:studentId'>
+                        <Navbar />
                         <Profile />
                     </Route>
                     <Route path='/event/:eventId'>

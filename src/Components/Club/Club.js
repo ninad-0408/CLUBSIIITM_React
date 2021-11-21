@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { getClub, removeMember } from '../../Actions/club';
+import { getClub, getClubApprovals, removeMember } from '../../Actions/club';
 import { baseUrl } from '../../Constants/baseUrl';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
@@ -10,16 +10,27 @@ import Footer from '../Footer/Footer';
 const Club = () => {
 
     const [disabledRemove, setdisabledRemove] = useState([]);
-
+    
+    const user = JSON.parse(localStorage.getItem('cookie')).profile;
+    
     const dispatch = useDispatch();
     const clubs = useSelector(state => state.clubs);
+    const approvals = useSelector(state => state.approvals);
     const { clubId } = useParams();
+    const approval = approvals[clubId];
     const club = clubs[clubId];
+    const [admin, setadmin] = useState(false);
 
     useEffect(() => {
-        if (!(club !== undefined && club.achievements !== undefined))
-            dispatch(getClub(clubId));
-    }, [dispatch]);
+        if(admin && approval === undefined)
+        dispatch(getClubApprovals(clubId));
+
+        if (club === undefined || club.presidentid === undefined)
+        dispatch(getClub(clubId)); 
+        
+        setadmin((user?._id === club?.presidentid?._id));
+        
+    }, [dispatch, club, user]);
 
     const handleJoinClub = () => {
 
@@ -32,7 +43,7 @@ const Club = () => {
     };
 
     return (
-        (club !== undefined && club.achievements !== undefined) ?
+        (club !== undefined && club.presidentid !== undefined) ?
             <>
                 <header class="masthead bg-primary text-white text-center" id="page-top">
                     <div class="container d-flex align-items-center flex-column">
@@ -126,8 +137,11 @@ const Club = () => {
                                 )) : 'No Current Events'
                             }
                         </div>
-                        <a href="<%=club._id%>/event" class="mt-5 col offset-md-4 col-md-4 btn btn-secondary btn-lg"
-                            style={{ 'font-family': 'Ubuntu, sans-serif' }}>Add Event</a>
+                        {
+                            admin &&
+                            <a href="<%=club._id%>/event" class="mt-5 col offset-md-4 col-md-4 btn btn-secondary btn-lg"
+                                style={{ 'font-family': 'Ubuntu, sans-serif' }}>Add Event</a>
+                        }
                     </div>
                 </section >
 
@@ -148,13 +162,15 @@ const Club = () => {
                                             style={{ 'color': 'rgb(0,0,139)' }, { 'font-family': 'Ubuntu, sans-serif' }} class="col colordark">
                                             {member.name}
                                         </Link>
-                                        {
-                                            (disabledRemove.indexOf(member._id) === -1) ?
+                                        {admin &&
+
+                                            ((disabledRemove.indexOf(member._id) === -1) ?
                                                 <button class="btn btn-danger" onClick={() => removeStudent(member._id)}>Remove</button>
                                                 : <button class="btn btn-danger" disabled>
                                                     <span class="spinner-border spinner-border-sm text-primary" role="status" aria-hidden="true"></span>
                                                     Removing...
                                                 </button>
+                                            )
                                         }
                                     </li>
                                 )) : 'No Current Events'
