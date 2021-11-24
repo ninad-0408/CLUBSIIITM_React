@@ -24,6 +24,9 @@ export const postEvent  = (clubId, newEvent) => API.post(`/club/${clubId}/event`
 export const postApproval = (clubId) => API.post(`/club/${clubId}/approval`);
 export const removeMember = (clubId, studentId) => API.post(`/club/${clubId}/remove/${studentId}`);
 
+export const approveApproval = (approvalId) => API.post(`/approval/${approvalId}/approve`);
+export const declineApproval = (approvalId) => API.post(`/approval/${approvalId}/decline`);
+
 export const getUpcomingEvents = () => API.get('/event');
 export const getEvent = (eventId) => API.get(`/event/${eventId}`);
 export const patchEvent = (eventId, updateInfo) => API.patch(`/event/${eventId}`, updateInfo);

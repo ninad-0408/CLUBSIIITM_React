@@ -6,6 +6,10 @@ const reducer = (state = {}, action) => {
         case actionTypes.APPROVALS:
             return  { ...state, [action.payload.clubId]: action.payload.approvals };
 
+        case actionTypes.DELAPPROVAL:
+            const approvals = state[action.payload.clubId].filter((e) => e !== action.payload.approvalId );
+            return { ...state, [action.payload.clubId]: approvals };
+
         default:
             return state;
     }

@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { getClub, getClubApprovals, postApproval, removeMember } from '../../Actions/club';
 import { baseUrl } from '../../Constants/baseUrl';
+import { getClub, getClubApprovals, postApproval, removeMember } from '../../Actions/club';
+import { approveApproval, declineApproval } from '../../Actions/approval';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
 
 const Club = () => {
 
     const [disabledRemove, setdisabledRemove] = useState([]);
+    const [approve, setapprove] = useState([]);
+    const [decline, setdecline] = useState([]);
 
-    const user = JSON.parse(localStorage.getItem('cookie')).profile;
+    const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
 
     const dispatch = useDispatch();
     const clubs = useSelector(state => state.clubs);
@@ -30,28 +33,29 @@ const Club = () => {
 
         setadmin((user?._id === club?.presidentid?._id));
 
-    }, [dispatch, club, user]);
+    }, [dispatch, club, user, approval]);
 
     const handleJoinClub = () => {
         dispatch(postApproval(clubId));
     };
 
     const removeStudent = (studentId) => {
-
         setdisabledRemove([...disabledRemove, studentId]);
         dispatch(removeMember(clubId, studentId));
     };
 
-    const approveApproval = (approvalId) => {
-        
+    const handleApprove = (approvalId) => {
+        setapprove([...approve, approvalId]);
+        dispatch(approveApproval(approvalId, clubId));
     };
 
-    const meetApproval = (approvalId) => {
+    const handleMeet = (approvalId) => {
 
     };
 
-    const declineApproval = (approvalId) => {
-
+    const handleDecline = (approvalId) => {
+        setdecline([...decline, approvalId]);
+        dispatch(declineApproval(approvalId, clubId));
     };
 
     return (
@@ -70,7 +74,7 @@ const Club = () => {
                             <div class="divider-custom-line"></div>
                         </div>
                         {
-                            (club.memberids.filter((member) => member._id === user._id).length === 0) &&
+                            (club.memberids.filter((member) => member._id === user?._id).length === 0) &&
                             <button type="submit" class="btn btn-success" onClick={handleJoinClub}>JOIN</button>
                         }
                     </div>
@@ -177,7 +181,7 @@ const Club = () => {
                                             style={{ 'color': 'rgb(0,0,139)' }, { 'font-family': 'Ubuntu, sans-serif' }} class="col colordark">
                                             {member.name}
                                         </Link>
-                                        {admin && (member._id !== user._id) &&
+                                        {admin && (member._id !== user?._id) &&
 
                                             ((disabledRemove.indexOf(member._id) === -1) ?
                                                 <button class="btn btn-danger" onClick={() => removeStudent(member._id)}>Remove</button>
@@ -212,14 +216,30 @@ const Club = () => {
                                                 style={{ 'color': 'darkblue' }, { 'font-family': 'Ubuntu, sans-serif' }}>
                                                 {app.studentid.name}
                                             </Link>
-                                            <div class="col-xs-6 col-md-4">
-                                                <a role='button' onClick={() => approveApproval(app._id)}
-                                                    class="btn btn-success btn-sm">Approve</a>
-                                                <a role='button' onClick={() => meetApproval(app._id)}
+                                            <div class="btn-group col-xs-6 col-md-4">
+                                                {
+                                                    (approve.indexOf(app._id) === -1) ?
+                                                        <a role='button' onClick={() => handleApprove(app._id)}
+                                                            class="btn btn-success btn-sm">Approve</a>
+                                                        :
+                                                        <button class="btn btn-success btn-sm" disabled>
+                                                            <span class="spinner-border spinner-border-sm text-primary" role="status" aria-hidden="true"></span>
+                                                            Approving...
+                                                        </button>
+                                                }
+                                                <a role='button' onClick={() => handleMeet(app._id)}
                                                     class="btn btn-warning btn-sm">Schedule
                                                     Meet</a>
-                                                <a role='button' onClick={() => declineApproval(app._id)}
-                                                    class="btn btn-danger btn-sm">Reject</a>
+                                                {
+                                                    (decline.indexOf(app._id) === -1) ?
+                                                        <a role='button' onClick={() => handleDecline(app._id)}
+                                                            class="btn btn-danger btn-sm">Reject</a>
+                                                        :
+                                                        <button class="btn btn-danger btn-sm" disabled>
+                                                            <span class="spinner-border spinner-border-sm text-primary" role="status" aria-hidden="true"></span>
+                                                            Rejecting...
+                                                        </button>
+                                                }
                                             </div>
                                         </li>
                                     ))
