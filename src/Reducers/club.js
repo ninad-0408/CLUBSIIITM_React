@@ -10,6 +10,10 @@ const reducer = (state = {}, action) => {
         
         case actionTypes.CLUB:
             return { ...state, [action.payload._id]: action.payload };
+
+        case actionTypes.REMOVE:
+            const club = state[action.payload.clubId].memberids.filter((e) => e !== action.payload.studentId);
+            return { ...state, [action.payload.clubId]: club };
     
         default:
             return state;
