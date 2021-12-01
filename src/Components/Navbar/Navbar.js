@@ -10,7 +10,7 @@ const Navbar = ({ home, club }) => {
     const history = useHistory();
     const clubs = useSelector(state => state.clubs);
     const { clubId } = useParams();
-
+    // console.log(clubId);
     const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
     const [admin, setadmin] = useState(false);
 
@@ -109,9 +109,10 @@ const Navbar = ({ home, club }) => {
                                     </li>
                                     {
                                         admin &&
-                                        <li class="nav-item mx-0 mx-lg-1"><a
-                                            class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#"
-                                            style={{color: 'white'}}>Edit</a>
+                                        <li class="nav-item mx-0 mx-lg-1">
+                                        <Link to={`/club/${clubId}/edit`} class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                                            style={{'color': 'white'}}>
+                                            Edit</Link>
                                         </li>
                                     }
                                 </ul>

@@ -40,3 +40,14 @@ export const declineApproval = (approvalId, clubId) => async (dispatch) => {
     }
 
 };
+export const ScheduleMeet = (approvalId, meet) => async (dispatch) => {
+
+    try {
+        const { data } = await api.ScheduleMeet(approvalId,meet);
+        
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+};
