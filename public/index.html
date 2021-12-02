@@ -19,6 +19,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Fondamento&display=swap" rel="stylesheet">
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
   <link rel="stylesheet" type="text/css"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
@@ -30,16 +32,46 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="/js/scripts.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/bootstrap-notify.min.js"></script>
+  <script src="/js/notify.js"></script>
+  <script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+  </script>
+  <script>
+    add = () => {
+        // let text=document.getElementById('achievements');
+        let form = document.getElementById('main')
+        main.innerHTML = `<textarea rows="2" type="text" class="form-control" id="achievements" name="achievements"></textarea><br id="br">` + main.innerHTML;
+    }
+    function remove() {
+        var myobj = document.getElementById("achievements");
+        myobj.remove();
+        var brobj = document.getElementById("br");
+        brobj.remove();
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="/js/datedropper.pro.min.js"></script>
+  <script src="/js/timedropper.min.js"></script>
+  
+  <!-- datedropper init -->
+  <script>
+    document.getElementById("date-input").dateDropper();
+  </script>
+  <script src="/js/datetime.js"></script>
 
 
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="/js/scripts.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/bootstrap-notify.min.js"></script>
-<script src="/js/notify.js"></script>
 
 </html>
+

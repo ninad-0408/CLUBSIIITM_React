@@ -7,8 +7,11 @@ import { getClub, getClubApprovals, postApproval, removeMember } from '../../Act
 import { approveApproval, declineApproval } from '../../Actions/approval';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
+import Meet from '../Forms/ScheduleMeeting';
+import { render } from '@testing-library/react';
+import { Redirect } from "react-router-dom";
 
-const Club = () => {
+const Club = ({ setapp }) => {
 
     const [disabledRemove, setdisabledRemove] = useState([]);
     const [approve, setapprove] = useState([]);
@@ -20,7 +23,9 @@ const Club = () => {
     const clubs = useSelector(state => state.clubs);
     const approvals = useSelector(state => state.approvals);
     const { clubId } = useParams();
+    // console.log(clubId);
     const approval = approvals[clubId];
+    // console.log(approval);
     const club = clubs[clubId];
     const [admin, setadmin] = useState(false);
 
@@ -47,10 +52,6 @@ const Club = () => {
     const handleApprove = (approvalId) => {
         setapprove([...approve, approvalId]);
         dispatch(approveApproval(approvalId, clubId));
-    };
-
-    const handleMeet = (approvalId) => {
-
     };
 
     const handleDecline = (approvalId) => {
@@ -227,9 +228,10 @@ const Club = () => {
                                                             Approving...
                                                         </button>
                                                 }
-                                                <a role='button' onClick={() => handleMeet(app._id)}
-                                                    class="btn btn-warning btn-sm">Schedule
-                                                    Meet</a>
+                                                <Link to={`/approval/${app._id}/meet`} >
+                                                <a role='button'
+                                                    class="btn btn-warning btn-sm" onClick={() => setapp(app)}>Schedule
+                                                    Meet</a></Link>
                                                 {
                                                     (decline.indexOf(app._id) === -1) ?
                                                         <a role='button' onClick={() => handleDecline(app._id)}

@@ -26,6 +26,7 @@ export const removeMember = (clubId, studentId) => API.post(`/club/${clubId}/rem
 
 export const approveApproval = (approvalId) => API.post(`/approval/${approvalId}/approve`);
 export const declineApproval = (approvalId) => API.post(`/approval/${approvalId}/decline`);
+export const ScheduleMeet = (approvalId,meet) => API.post(`/approval/${approvalId}/meet`,meet);
 
 export const getUpcomingEvents = () => API.get('/event');
 export const getEvent = (eventId) => API.get(`/event/${eventId}`);
