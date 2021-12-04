@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const ClubEdit = () => {
    
     return (
@@ -15,7 +14,7 @@ const ClubEdit = () => {
                 <div class="divider-custom-line"></div>
             </div>
 
-            <form action="/club/<%=club._id%>" id="form" method="POST" >
+            <form >
                 <div class="form-group">
                     <label for="info">New Description</label>
                     <textarea rows="2" type="text" class="form-control" id="info"
