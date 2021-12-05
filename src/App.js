@@ -31,7 +31,7 @@ const App = () => {
                         <Navbar home />
                         <Home />
                     </Route>
-                    <Route path='/club/:clubId'>
+                    <Route exact path='/club/:clubId'>
                         <Navbar club />
                         <Club setapp={setapp} />
                     </Route>
