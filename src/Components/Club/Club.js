@@ -159,8 +159,8 @@ const Club = ({ setapp }) => {
                         </div>
                         {
                             admin &&
-                            <a href="<%=club._id%>/event" class="mt-5 col offset-md-4 col-md-4 btn btn-secondary btn-lg"
-                                style={{ 'font-family': 'Ubuntu, sans-serif' }}>Add Event</a>
+                            <Link to={`/club/${clubId}/event`} class="mt-5 col offset-md-4 col-md-4 btn btn-secondary btn-lg"
+                                style={{ 'font-family': 'Ubuntu, sans-serif' }}>Add Event</Link>
                         }
                     </div>
                 </section >
