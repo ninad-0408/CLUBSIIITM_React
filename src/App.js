@@ -12,6 +12,7 @@ import Profile from './Components/Profile/Profile';
 import Event from './Components/Event/Event';
 import Meet from './Components/Forms/ScheduleMeeting';
 import ClubEdit from './Components/Forms/ClubEdit';
+import EventCreate from './Components/Forms/EventCreate';
 
 const App = () => {
 
@@ -50,6 +51,10 @@ const App = () => {
                     <Route path='/club/:clubId/edit'>
                         <Navbar />
                         <ClubEdit />
+                    </Route>
+                    <Route path='/club/:clubId/event'>
+                        <Navbar />
+                        <EventCreate />
                     </Route>
                 </Switch>
             </div>

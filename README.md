@@ -2,7 +2,7 @@
 <h4 align="center">A club management system build for  <a href="https://www.iiitm.ac.in/" target="_blank">IIITM</a> community.</h4>
 <p align="center"> •
   <a href="#overview">Overview</a> •
-  <a href="#local-installation">Local Installation</a> •
+<!--   <a href="#local-installation">Local Installation</a> • -->
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#team-members">Team Members</a>
 </p>
@@ -25,28 +25,7 @@ members. In order to incorporate all the above functionalities in the web applic
 front-end technologies such as HTML, CSS, Javascript and back-end
 technologies such as NodeJS, ExpressJS and MongoDB.
 
-<p id="local-installation"></p>
 
-## Local Installation
-
-1. Clone this repo using <code> git clone https://github.com/akshat45/CLUBS-IIITM.git </code>
-2. After cloning create a <code>.env</code> file to store all the environment variables
-3. Fill the <code>.env</code> with the following content : 
-(Note: RETRACTED means we should not share this variable, and thus should not be present in public repos)
-```
-
-CONNECTION_URL = RETRACTED (Put your mongodb atlas url here)
-CLIENT_ID = RETRACTED (Put Your client id given by google developer console)
-CLIENT_SECRET =  RETRACTED (Put Your client secret given by google developer console)
-EMAIL = RETRACTED (Enter the email using which all clubs related emails will be sent)
-secret =  RETRACTED (Any secret key of your choice)
-CLIENT_ID2 = RETRACTED 
-CLIENT_SECRET2 = RETRACTED
-REFRESH_TOKEN2 = RETRACTED
-CALLBACK_URL = RETRACTED
-```
-4. After setting the <code>.env</code> file, run the command <code>npm i</code> so that npm automatically installs all the node packages and their dependencies which are required for the project
-5. To start the server run the command <code>npm start</code>
 
 
 <p id="tech-stack"></p>
@@ -91,6 +70,6 @@ CALLBACK_URL = RETRACTED
 </p>
 <p align="center">
 		<a href="https://github.com/akshat45">Akshat Gupta</a> •
-		<a href="https://github.com/jayraikhere">Jay Raikhere</a> 
+		<a href="https://github.com/jayraikhere">Jay Raikhere</a> •
      <a href="https://github.com/ninad-0408/">Ninad Kalanke</a> 
 </p>

@@ -23,11 +23,12 @@ export const patchClub = (clubId, updateInfo) => API.patch(`/club/${clubId}`, up
 export const postEvent  = (clubId, newEvent) => API.post(`/club/${clubId}/event`, newEvent);
 export const postApproval = (clubId) => API.post(`/club/${clubId}/approval`);
 export const removeMember = (clubId, studentId) => API.post(`/club/${clubId}/remove/${studentId}`);
-export const EditClub = (approvalId,data) => API.post(`/approval/${approvalId}/meet`,data);
+export const ScheduleEvent = (clubId,event) => API.post(`/club/${clubId}/event`, event);
 
 export const approveApproval = (approvalId) => API.post(`/approval/${approvalId}/approve`);
 export const declineApproval = (approvalId) => API.post(`/approval/${approvalId}/decline`);
 export const ScheduleMeet = (approvalId,meet) => API.post(`/approval/${approvalId}/meet`,meet);
+
 
 export const getUpcomingEvents = () => API.get('/event');
 export const getEvent = (eventId) => API.get(`/event/${eventId}`);
