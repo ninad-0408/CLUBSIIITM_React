@@ -127,3 +127,13 @@ export const ScheduleEvent = (clubId, event) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const EditClub = (clubId, club) => async (dispatch) => {
+    try {
+        const { data } = await api.ScheduleEvent(clubId, club); 
+        // console.log(data);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
