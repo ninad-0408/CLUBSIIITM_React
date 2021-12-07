@@ -13,6 +13,7 @@ import Event from './Components/Event/Event';
 import Meet from './Components/Forms/ScheduleMeeting';
 import ClubEdit from './Components/Forms/ClubEdit';
 import EventCreate from './Components/Forms/EventCreate';
+import EventEdit from './Components/Forms/EventEdit';
 
 const App = () => {
 
@@ -40,9 +41,13 @@ const App = () => {
                         <Navbar />
                         <Profile />
                     </Route>
-                    <Route path='/event/:eventId'>
+                    <Route exact path='/event/:eventId'>
                         <Navbar />
                         <Event />
+                    </Route>
+                    <Route path='/event/:eventId/edit'>
+                        <Navbar />
+                        <EventEdit />
                     </Route>
                     <Route path='/approval/:approvalId/meet'>
                         <Navbar />
