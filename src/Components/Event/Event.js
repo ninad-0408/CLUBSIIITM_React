@@ -26,7 +26,7 @@ const Event = () => {
     return (
         (event !== undefined) ?
             <div>
-                <h1 style="text-align: center;">Event Details</h1>
+                <h1 style={{"text-align": "center"}}>Event Details</h1>
                 <div class="container">
                     <div class="row">
                         <div class="col mt-5 text-center">
@@ -67,7 +67,7 @@ const Event = () => {
                         </div>
                     </div>
                     {/* <% if(ispresident) { %> */}
-                    {/* <div class="row">
+                    <div class="row">
                                 <a href={`${event._id}/edit`} class="mt-5 offset-md-5 col-md-2 btn btn-primary btn-lg">
                                     Edit Event
                                 </a>
@@ -75,9 +75,9 @@ const Event = () => {
                                     <label for="submit" class="btn btn-danger btn-lg">
                                         Delete Event
                                     </label>
-                                    <input  style="display: none"/>
+                                    <input  style={{"display": "none"}}/>
                                 </form>
-                            </div> */}
+                            </div>
                 </div>
             </div>
             : <Loader margin />
