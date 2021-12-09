@@ -16,3 +16,13 @@ export const getStudent = (studentId) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const editStudent = (studentId,student) => async (dispatch) => {
+
+    try {
+        const { data } = await api.editStudent(studentId,student);
+    }
+    catch (error) {
+        console.log(error);
+    }
+};

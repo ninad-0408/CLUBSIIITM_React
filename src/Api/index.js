@@ -37,3 +37,4 @@ export const patchEvent = (eventId, updateInfo) => API.patch(`/event/${eventId}`
 export const delEvent = (eventId) => API.delete(`/event/${eventId}`);
 
 export const getStudent = (studentId) => API.get(`/student/${studentId}`); 
+export const editStudent = (studentId,student) => API.patch(`/student/${studentId}/edit`,student);

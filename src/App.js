@@ -13,6 +13,7 @@ import Event from './Components/Event/Event';
 import Meet from './Components/Forms/ScheduleMeeting';
 import ClubEdit from './Components/Forms/ClubEdit';
 import EventCreate from './Components/Forms/EventCreate';
+import StudentEdit from './Components/Forms/StudentEdit'
 
 const App = () => {
 
@@ -36,9 +37,13 @@ const App = () => {
                         <Navbar club />
                         <Club setapp={setapp} />
                     </Route>
-                    <Route path='/student/:studentId'>
+                    <Route exact path='/student/:studentId'>
                         <Navbar />
                         <Profile />
+                    </Route>
+                    <Route  path='/student/:studentId/edit'>
+                        <Navbar />
+                        <StudentEdit />
                     </Route>
                     <Route path='/event/:eventId'>
                         <Navbar />
