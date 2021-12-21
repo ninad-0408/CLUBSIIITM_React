@@ -26,8 +26,8 @@ const StudentEdit = () => {
         });
 
     }
-    const handleSubmit =  (studentId) => {
-         dispatch(editStudent(studentId, upstudent));
+    const handleSubmit = async (studentId) => {
+        await  dispatch(editStudent(studentId, upstudent));
     };
 
     useEffect(() => {

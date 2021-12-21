@@ -60,3 +60,14 @@ export const getUpcomingEvents = (eventId) => async (dispatch) => {
         console.log(error);
     }
 };
+
+
+export const editEvent = (eventId,event) => async (dispatch) => {
+
+    try {
+        const { data } = await api.editEvent(eventId,event);
+        
+    } catch (error) {
+        console.log(error);
+    }
+};

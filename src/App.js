@@ -13,11 +13,10 @@ import Event from './Components/Event/Event';
 import Meet from './Components/Forms/ScheduleMeeting';
 import ClubEdit from './Components/Forms/ClubEdit';
 import EventCreate from './Components/Forms/EventCreate';
-<<<<<<< HEAD
 import StudentEdit from './Components/Forms/StudentEdit'
-=======
 import EventEdit from './Components/Forms/EventEdit';
->>>>>>> c2d8133e1b11dda66ec6153d8a27dfae39c01732
+
+
 
 const App = () => {
 
@@ -45,15 +44,11 @@ const App = () => {
                         <Navbar />
                         <Profile />
                     </Route>
-<<<<<<< HEAD
-                    <Route  path='/student/:studentId/edit'>
+                    <Route  exact path='/student/:studentId/edit'>
                         <Navbar />
                         <StudentEdit />
                     </Route>
-                    <Route path='/event/:eventId'>
-=======
                     <Route exact path='/event/:eventId'>
->>>>>>> c2d8133e1b11dda66ec6153d8a27dfae39c01732
                         <Navbar />
                         <Event />
                     </Route>

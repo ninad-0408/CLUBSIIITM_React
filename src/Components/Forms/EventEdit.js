@@ -1,11 +1,51 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getEvent } from '../../Actions/event';
+import Loader from '../Loader/Loader';
+import {editEvent} from '../../Actions/event'
+import { useState } from 'react';
 
 const EventEdit = () => {
+
+    const dispatch = useDispatch();
+
+    const { eventId } = useParams();
+    const events = useSelector(state => state.events);
+    const event = events[eventId];
+    const [upevent, setevent] = useState(event);
+
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setevent((prev) => {
+            return {
+                ...prev,
+                [name]: value
+            };
+        });
+
+    }
+    // const handleSubmit =  (eventId) => {
+    //     await dispatch(editEvent(eventId, upevent));
+    // };
+
+
+    useEffect(() => {
+
+        if (!event)
+            dispatch(getEvent(eventId));
+
+    }, [dispatch]);
+
     return (
+        (upevent!== null) ?
+        <>
         <div>
             <div class="container mt-5 pt-5">
         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"
-            style={{"font-family": "Kaushan Script cursive"}}>Edit event.name Event
+            style={{"font-family": "Kaushan Script cursive"}}>Edit  Event
         </h2>
         {/* <!-- Icon Divider--> */}
         <div class="divider-custom">
@@ -14,10 +54,10 @@ const EventEdit = () => {
             <div class="divider-custom-line"></div>
         </div>
 
-        <form method="POST" action="/event/<%=event._id %>/" enctype="multipart/form-data">
+        <form >
             <div class="form-group">
                 <label for="name" class="form-label">Name of Event</label>
-                <input type="text" class="form-control" id="name" name="name" value="<%=event.name%>" required />
+                <input type="text" class="form-control" id="name" name="name" value="{event.name}" required />
             </div>
 
             <div class="form-group">
@@ -57,6 +97,7 @@ const EventEdit = () => {
 
     </div>
          </div>
+         </> : <Loader margin />
     )
 };
 

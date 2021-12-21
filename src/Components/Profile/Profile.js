@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams,useHistory } from 'react-router-dom';
 
 import { getStudent } from '../../Actions/student';
 import Loader from '../Loader/Loader';
 import { Link } from 'react-router-dom';
 
+
 const Profile = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const students = useSelector(state => state.students);
     const { studentId } = useParams();
 
@@ -17,6 +19,11 @@ const Profile = () => {
         if (!(student !== undefined))
             dispatch(getStudent(studentId));
     }, [dispatch]);
+
+    function handleLogout(){
+        localStorage.removeItem('cookie');
+        history.push('/');
+    }
 
     return (
 
@@ -76,7 +83,7 @@ const Profile = () => {
                             Edit Profile
                         </a>
                         
-                        <a href="/logout" class="mt-5 btn btn-danger btn-lg">
+                        <a  class="mt-5 btn btn-danger btn-lg" onClick={handleLogout}>
                             <i class="fas fa-sign-out-alt"></i>
                             Logout
                         </a>
