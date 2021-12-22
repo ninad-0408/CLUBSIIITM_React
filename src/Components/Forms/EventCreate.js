@@ -16,21 +16,34 @@ const EventCreate = () => {
         time:"",
         meetlink:"",
         description:"",
-        image:""
+        image: null
     });
-    function handleChange(event){
-        const {name,value} = event.target;
+
+    function handleChange(e){
+        const {name,value} = e.target;
+        if(name !== 'image')
         setEvent((prev) => {
             return {
                 ...prev,
               [name]: value
             };
           });
+        
+        else
+        setEvent((prev) => {
+            console.log(e);
+            return {
+                ...prev,
+              'image': e.target.files[0]
+            };
+          });
     }
-    const handleSubmit = async (clubId) => {
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
         console.log(event);
-        await dispatch(ScheduleEvent(clubId, event));
-		// history.goBack();
+        dispatch(ScheduleEvent(clubId, event));
+		// history.push(`/club/${clubId}`);
     }; 
 
     return (
@@ -45,7 +58,7 @@ const EventCreate = () => {
             <div class="divider-custom-line"></div>
         </div>
 
-        <form >
+        <form onSubmit={handleSubmit} >
             <div class="form-group">
                 <label for="name" class="form-label">Name of Event</label>
                 <input type="text" class="form-control" id="name" name="name" value={event.name} onChange={handleChange} required/>
@@ -76,15 +89,15 @@ const EventCreate = () => {
                 <label for="image" class="btn btn-danger btn-md">
                     Choose Banner of Event
                 </label>
-                <input type="text" name="image" id="image"  style={{'display': 'none'}} value={event.image} onChange={handleChange}/>
+                <input type="file" name="image" id="image"  style={{'display': 'none'}} onChange={handleChange} />
             </div>
             <div class="form-group">
                 <img id="output" width="600px"/>
             </div>
 
-            <button class="btn btn-primary" onClick={() => handleSubmit(clubId)}>Submit</button>
-
-        </form> 
+            <button class="btn btn-primary" >Submit</button>
+            
+            </form> 
 
     </div>
     <div class="scroll-to-top position-fixed"><a class="js-scroll-trigger d-block text-center text-white rounded"
