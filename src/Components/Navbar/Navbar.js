@@ -65,7 +65,7 @@ const Navbar = ({ home, club }) => {
                                         user ?
                                             <li class="nav-item mx-0 mx-lg-1">
                                                 <Link class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                                                    to={`/student/${user._id}`} style={{ color: 'white' }}>
+                                                    to={`/student/${user._id}/profile`} style={{ color: 'white' }}>
                                                     User: {user.name}
                                                 </Link>
                                             </li>

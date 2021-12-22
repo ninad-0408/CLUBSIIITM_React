@@ -40,11 +40,11 @@ const App = () => {
                         <Navbar club />
                         <Club setapp={setapp} />
                     </Route>
-                    <Route exact path='/student/:studentId'>
+                    <Route  path='/student/:studentId/profile'>
                         <Navbar />
                         <Profile />
                     </Route>
-                    <Route  exact path='/student/:studentId/edit'>
+                    <Route path='/student/:studentId/edit'>
                         <Navbar />
                         <StudentEdit />
                     </Route>

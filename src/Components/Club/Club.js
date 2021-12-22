@@ -228,9 +228,8 @@ const Club = ({ setapp }) => {
                                                             Approving...
                                                         </button>
                                                 }
-                                                <Link to={`/approval/${app._id}/meet`} >
-                                                <a role='button'
-                                                    class="btn btn-warning btn-sm" onClick={() => setapp(app)}>Schedule
+                                                <Link class="btn btn-warning btn-sm" to={`/approval/${app._id}/meet`} >
+                                                <a role='button' onClick={() => setapp(app)}>Schedule
                                                     Meet</a></Link>
                                                 {
                                                     (decline.indexOf(app._id) === -1) ?
