@@ -15,6 +15,8 @@ const Profile = () => {
     const { studentId } = useParams();
 
     const student = students[studentId];
+
+    console.log(student);
     useEffect(() => {
         if (!(student !== undefined))
             dispatch(getStudent(studentId));
@@ -54,7 +56,7 @@ const Profile = () => {
 
                         <div class="mt-4 h4" style={{ 'font-family': 'Permanent Marker, cursive' }}>
                             <span class="font-weight-bold">LinkedIn: </span>
-                            <a href={`https://www.linkedin.com/in/${student.linkedin}`} style={{ 'color': '#007bff' }}>
+                            <a href={`https://www.linkedin.com/in/${student.linkedin}`} target="_blank" style={{ 'color': '#007bff' }}>
                                 {student.linkedin}
                             </a>
                         </div>
@@ -78,10 +80,10 @@ const Profile = () => {
                             <span class="font-weight-bold mr-2">Batch: </span>
                             {student.batch}
                         </div>
-                       <a href={`/student/${studentId}/edit`}class="mt-5 btn btn-primary btn-lg" style={{ 'margin-right': '10px', 'background-color:': 'blue' }}>
+                       <Link to={`/student/${studentId}/edit`} class="mt-5 btn btn-primary btn-lg" style={{ 'margin-right': '10px', 'background-color:': 'blue' }}>
                             <i class="fas fa-edit"></i>
                             Edit Profile
-                        </a>
+                        </Link>
                         
                         <a  class="mt-5 btn btn-danger btn-lg" onClick={handleLogout}>
                             <i class="fas fa-sign-out-alt"></i>

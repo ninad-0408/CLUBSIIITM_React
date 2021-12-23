@@ -21,6 +21,13 @@ export const editStudent = (studentId,student) => async (dispatch) => {
 
     try {
         const { data } = await api.editStudent(studentId,student);
+
+        const action = {
+            type: actionTypes.STUDENT,
+            payload: data.student
+        }
+
+        dispatch(action);
     }
     catch (error) {
         console.log(error);
