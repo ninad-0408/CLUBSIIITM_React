@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { EditClub } from '../../Actions/club';
@@ -24,8 +23,8 @@ const ClubEdit = () => {
             };
         });
     }
-    const handleSubmit = async (clubId) => {
-        await dispatch(EditClub(clubId, upClub));
+    const handleSubmit = (clubId) => {
+        dispatch(EditClub(clubId, upClub));
     };
 
     // var loadFile = function (event) {

@@ -11,7 +11,6 @@ import { getStudent } from '../../Actions/student';
 const StudentEdit = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-
     const students = useSelector(state => state.students);
     const { studentId } = useParams();
 
@@ -56,7 +55,7 @@ const StudentEdit = () => {
         student ?
             <>
                 <div>
-                    <div class="container-fluid mt-5 pt-5">
+                    <div class="container mt-5 pt-5">
 
                         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0 mt-5"
                             style={{ 'font-family': 'Kaushan Script,cursive'}}>Edit Profile

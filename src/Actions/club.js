@@ -121,7 +121,7 @@ export const removeMember = (clubId, studentId) => async (dispatch) => {
 export const ScheduleEvent = (clubId, event) => async (dispatch) => {
     try {
         const { data } = await api.ScheduleEvent(clubId, event); 
-        console.log(data);
+        
         
     } catch (error) {
         console.log(error);

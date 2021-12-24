@@ -7,9 +7,6 @@ import { getClub, getClubApprovals, postApproval, removeMember } from '../../Act
 import { approveApproval, declineApproval } from '../../Actions/approval';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
-import Meet from '../Forms/ScheduleMeeting';
-import { render } from '@testing-library/react';
-import { Redirect } from "react-router-dom";
 
 const Club = ({ setapp }) => {
 
