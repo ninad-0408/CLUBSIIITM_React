@@ -10,7 +10,6 @@ const Navbar = ({ home, club }) => {
     const history = useHistory();
     const clubs = useSelector(state => state.clubs);
     const { clubId } = useParams();
-    // console.log(clubId);
     const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
     const [admin, setadmin] = useState(false);
 

@@ -12,3 +12,4 @@ export const STUDENT = "STUDENT";
 export const MEET = "MEET";
 export const NEWEVENT = "NEWEVENT";
 export const DELEVENTCLUB = "DELEVENTCLUB";
+export const DELSTUDENT = "DELSTUDENT";
