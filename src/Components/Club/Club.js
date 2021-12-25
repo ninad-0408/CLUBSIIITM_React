@@ -7,9 +7,6 @@ import { getClub, getClubApprovals, postApproval, removeMember } from '../../Act
 import { approveApproval, declineApproval } from '../../Actions/approval';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
-import Meet from '../Forms/ScheduleMeeting';
-import { render } from '@testing-library/react';
-import { Redirect } from "react-router-dom";
 
 const Club = ({ setapp }) => {
 
@@ -22,11 +19,12 @@ const Club = ({ setapp }) => {
     const dispatch = useDispatch();
     const clubs = useSelector(state => state.clubs);
     const approvals = useSelector(state => state.approvals);
+    
     const { clubId } = useParams();
-    // console.log(clubId);
+    
     const approval = approvals[clubId];
-    // console.log(approval);
     const club = clubs[clubId];
+
     const [admin, setadmin] = useState(false);
 
     useEffect(() => {

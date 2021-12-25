@@ -121,7 +121,26 @@ export const removeMember = (clubId, studentId) => async (dispatch) => {
 export const ScheduleEvent = (clubId, event) => async (dispatch) => {
     try {
         const { data } = await api.ScheduleEvent(clubId, event); 
-        console.log(data);
+
+        const action1 = {
+            type: actionTypes.NEWEVENT,
+            payload: {
+                newEvent: {
+                    image: data.newEvent.image,
+                    name: data.newEvent.name,
+                    _id: data.newEvent._id
+                },
+                clubId
+            }
+        }
+
+        const action2 = {
+            type: actionTypes.EVENT,
+            payload: data.newEvent
+        }
+
+        dispatch(action1);
+        dispatch(action2);    
         
     } catch (error) {
         console.log(error);

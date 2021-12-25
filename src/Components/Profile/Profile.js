@@ -16,7 +16,6 @@ const Profile = () => {
 
     const student = students[studentId];
 
-    console.log(student);
     useEffect(() => {
         if (!(student !== undefined))
             dispatch(getStudent(studentId));

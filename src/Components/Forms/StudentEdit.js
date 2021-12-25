@@ -11,7 +11,6 @@ import { getStudent } from '../../Actions/student';
 const StudentEdit = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-
     const students = useSelector(state => state.students);
     const { studentId } = useParams();
 
@@ -55,11 +54,10 @@ const StudentEdit = () => {
     return (
         student ?
             <>
-                <div>
-                    <div class="container-fluid mt-5 pt-5">
-
+                <div className='profile pt-5'>
+                    <div class="container pt-5">
                         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0 mt-5"
-                            style={{ 'font-family': 'Kaushan Script,cursive'}}>Edit Profile
+                            style={{ 'font-family': 'Kaushan Script,cursive' }}>Edit Profile
                         </h2>
 
                         <div class="divider-custom">
@@ -72,19 +70,19 @@ const StudentEdit = () => {
                             <div class="form-group">
                                 <label for="full_name" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="full_name" name="name" value={student.name}
-                                    readonly/>
+                                    readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="roll_no" class="form-label"> Roll No.</label>
                                 <input type="text" class="form-control" id="roll_no" name="rollNo" value={student.rollNo}
-                                    readonly/>
+                                    readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="phoneno" class="form-label">Phone No.</label>
                                 <input type="number" class="form-control" id="phoneno" name="phoneno" value={upstudent.phoneno}
-                                    minlength="10" maxlength="10" onChange={handleChange} required/>
+                                    minlength="10" maxlength="10" onChange={handleChange} required />
                                 <small class="form-text text-muted">We will prank call you for sure.</small>
                             </div>
 
@@ -99,7 +97,7 @@ const StudentEdit = () => {
 
                             <div class="form-group">
                                 <label for="linkedin" class="form-label">LinkedIn ID</label>
-                                <input type="text" class="form-control" id="linkedin" name="linkedin" value={upstudent.linkedin}  onChange={handleChange}/>
+                                <input type="text" class="form-control" id="linkedin" name="linkedin" value={upstudent.linkedin} onChange={handleChange} />
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
 
@@ -114,13 +112,13 @@ const StudentEdit = () => {
 
                             <div class="form-group">
                                 <label for="branch" class="form-label">Branch</label>
-                                <input type="text" class="form-control" id="branch" name="branch" value={student.branch}  readonly />
+                                <input type="text" class="form-control" id="branch" name="branch" value={student.branch} readonly />
                             </div>
 
 
                             <div class="form-group">
                                 <label for="year" id="year" class="form-label">Batch </label>
-                                <input type="text" class="form-control" id="batch" name="batch" value={student.batch}  readonly />
+                                <input type="text" class="form-control" id="batch" name="batch" value={student.batch} readonly />
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
 
@@ -129,12 +127,10 @@ const StudentEdit = () => {
                         </form>
 
                         <p style={{ 'margin-left': '2.5em', 'padding': '0 7em 2em 0', 'border-width': '2px' }}></p>
-                        <form >
-                            <div class="form-group">
-                                <div class="form-text text-muted">Delete all information from <strong>CLUBSIIITM</strong>.</div>
-                                <button type="submit" class="btn btn-outline-danger" >UN-REGISTER</button>
-                            </div>
-                        </form>
+                        <div className='pb-5'>
+                            <div class="text-muted">Delete all information from <strong>CLUBSIIITM</strong>.</div>
+                            <button type="submit" class="btn btn-outline-danger" >UN-REGISTER</button>
+                        </div>
 
                     </div>
                 </div>

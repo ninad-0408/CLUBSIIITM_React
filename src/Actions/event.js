@@ -18,7 +18,7 @@ export const getEvent = (eventId) => async (dispatch) => {
 
 export const patchEvent = (eventId, updateInfo) => async (dispatch) => {
     try {
-        const { data } = await api.patchEvent(eventId);
+        const { data } = await api.patchEvent(eventId, updateInfo);
         const action = {
             type: actionTypes.EVENT,
             payload: data.event
@@ -31,16 +31,26 @@ export const patchEvent = (eventId, updateInfo) => async (dispatch) => {
 
 };
 
-export const delEvent = (eventId) => async (dispatch) => {
+export const delEvent = (clubId, eventId) => async (dispatch) => {
 
     try {
-        const { data } = await api.patchEvent(eventId);
-        const action = {
-            type: actionTypes.EVENT,
-            payload: data.event
+        const { data } = await api.delEvent(eventId);
+
+        const action1 = {
+            type: actionTypes.DELEVENT,
+            payload: data.eventId
         }
 
-        dispatch(action);
+        const action2 = {
+            type: actionTypes.DELEVENTCLUB,
+            payload: {
+                eventId: data.eventId,
+                clubId
+            }
+        }
+
+        dispatch(action1);
+        dispatch(action2);
     } catch (error) {
         console.log(error);
     }
