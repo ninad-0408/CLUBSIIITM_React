@@ -42,11 +42,11 @@ const EventCreate = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(ScheduleEvent(clubId, event));
-        history.push(`/club/${clubId}`);
+        history.goBack();
     };
 
     return (
-        <div>
+        <div className='profile pt-5 pb-5'>
             <div class="container mt-5 pt-5">
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"
                     style={{ 'font-family': 'Kaushan Script,cursive' }}>Add Event

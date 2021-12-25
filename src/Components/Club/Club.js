@@ -19,11 +19,12 @@ const Club = ({ setapp }) => {
     const dispatch = useDispatch();
     const clubs = useSelector(state => state.clubs);
     const approvals = useSelector(state => state.approvals);
+    
     const { clubId } = useParams();
-    // console.log(clubId);
+    
     const approval = approvals[clubId];
-    // console.log(approval);
     const club = clubs[clubId];
+
     const [admin, setadmin] = useState(false);
 
     useEffect(() => {

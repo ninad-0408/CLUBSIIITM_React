@@ -1,5 +1,7 @@
 @charset "UTF-8";
 .profile{
+	min-height: 100vh;
+	width: 100vw;
 	background-image: url(./profile.jpeg) ;
 	font-family: "Permanent Marker";
 	margin: 0;

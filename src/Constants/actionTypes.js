@@ -10,3 +10,5 @@ export const UPCOMINGEVENTS = "UPCOMINGEVENTS";
 export const AUTH = "AUTH";
 export const STUDENT = "STUDENT";
 export const MEET = "MEET";
+export const NEWEVENT = "NEWEVENT";
+export const DELEVENTCLUB = "DELEVENTCLUB";

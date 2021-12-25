@@ -30,9 +30,9 @@ const ScheduleMeeting = ({ app, setapp }) => {
 
 	return (
 		app ?
-			<div>
-				<div class="container mt-5 mb-5">
-					<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"
+			<div className='profile pt-5'>
+				<div class="container mb-5">
+					<h2 class="page-section-heading text-center text-uppercase text-secondary"
 						style={{ 'font-family': 'Kaushan Script, cursive', 'marginTop': '200px' }}>Schedule interview of {app.studentid.name}
 					</h2>
 					<div class="divider-custom">
