@@ -1,24 +1,25 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getEvent } from '../../Actions/event';
 import Loader from '../Loader/Loader';
-import { editEvent } from '../../Actions/event'
+import { patchEvent } from '../../Actions/event'
 import { useState } from 'react';
 
 const EventEdit = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { eventId } = useParams();
     const events = useSelector(state => state.events);
     const event = events[eventId];
-    const [upevent, setevent] = useState(event);
+    const [upevent, setevent] = useState(null);
 
-    function handleChange(event) {
-        const { name, value } = event.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setevent((prev) => {
             return {
                 ...prev,
@@ -27,18 +28,25 @@ const EventEdit = () => {
         });
 
     }
-    // const handleSubmit =  (eventId) => {
-    //     await dispatch(editEvent(eventId, upevent));
-    // };
 
+    const handleSubmit = (e) => {
+        dispatch(patchEvent(eventId, upevent));
+        history.push(`/event/${eventId}`);
+    };
 
     useEffect(() => {
         if (!event)
             dispatch(getEvent(eventId));
     }, [dispatch]);
 
+    useEffect(() => {
+        const date = `${event?.date.substring(0,10)}`;
+        const time = `${event?.date.substring(11,13)}:${event?.date.substring(14,16)}`;
+        setevent({ ...event, date: date, time: time });
+    }, [event]);
+
     return (
-        event ?
+        upevent ?
             <>
                 <div className='profile pt-5 pb-5'>
                     <div class="container mt-5 pt-5">
@@ -52,47 +60,45 @@ const EventEdit = () => {
                             <div class="divider-custom-line"></div>
                         </div>
 
-                        <form >
+                        <form onSubmit={handleSubmit}>
                             <div class="form-group">
                                 <label for="name" class="form-label">Name of Event</label>
-                                <input type="text" class="form-control" id="name" name="name" value={event.name} required />
+                                <input type="text" class="form-control" id="name" name="name" value={upevent.name} onChange={handleChange} required />
                             </div>
 
                             <div class="form-group">
                                 <label for="date" class="form-label">Date of Event</label>
-                                <input type="date" class="form-control" id="date" value={ `${event.date.substring(0,10)}` } name="date" required />
+                                <input type="date" class="form-control" id="date" value={upevent.date} name="date" onChange={handleChange} required />
                             </div>
 
                             <div class="form-group">
                                 <label for="time" class="form-label">Time of Event</label>
-                                <input type="time" class="form-control" id="time" value={`${event.date.substring(11,13)}:${event.date.substring(14,16)}` } name="time" required />
+                                <input type="time" class="form-control" id="time" value={upevent.time} name="time" onChange={(e) => console.log(e)} required />
                             </div>
 
                             <div class="form-group">
                                 <label for="meetlink" class="form-label">Meetlink</label>
-                                <input type="text" class="form-control" id="meetlink" value={event.meetlink} name="meetlink" required />
+                                <input type="text" class="form-control" id="meetlink" value={upevent.meetlink} name="meetlink" onChange={handleChange} required />
                             </div>
 
 
                             <div class="form-group">
                                 <label for="description" class="form-label">Description of Event</label>
-                                <input type="text" class="form-control" id="description" value={event.description} name="description" required />
+                                <input type="text" class="form-control" id="description" value={upevent.description} name="description" onChange={handleChange} required />
                             </div>
 
                             <div class="form-group">
                                 <label for="image" class="btn btn-danger btn-md">
                                     Choose Banner of Event
                                 </label>
-                                <input type="file" name="image" id="image" onchange="loadFile(event)" style={{ "display": "none" }} />
+                                <input type="file" name="image" id="image" onChange="loadFile(event)" style={{ "display": "none" }} />
                             </div>
                             <div class="form-group">
-                                <img src="/image/" id="output" width="600px" />
+                                <img class="img-fluid" src="/image/" id="output" />
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
-
+                            <button class="btn btn-primary">Submit</button>
                         </form>
-
                     </div>
                 </div>
             </> : <Loader margin />
