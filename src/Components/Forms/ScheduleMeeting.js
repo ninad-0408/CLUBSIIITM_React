@@ -4,27 +4,30 @@ import { useDispatch } from 'react-redux';
 import { ScheduleMeet } from '../../Actions/approval'
 import Loader from '../Loader/Loader';
 import { useHistory } from 'react-router';
+import DateFnsUtils from '@date-io/date-fns';
+import {DatePicker,	TimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 const ScheduleMeeting = ({ app, setapp }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [meet, setMeet] = useState({
-		time: "",
-		date: ""
+		time: new Date(),
+		date: new Date()
 	});
 
 	function handleChange(event) {
-		const { name, value } = event.target;
-		setMeet((prev) => {
-			return {
-				...prev,
-				[name]: value
-			};
-		});
+		setMeet({
+			date: event,
+			time: event
+		})
 	};
 
 	const handleSubmit = () => {
-		dispatch(ScheduleMeet(app._id, meet));
+		var timedate = {
+			date: meet.date.toLocaleDateString(),
+			time: meet.time.toLocaleTimeString('en-US')
+		}
+		dispatch(ScheduleMeet(app._id, timedate));
 		history.push(`/club/${app.clubid}`);
 	};
 
@@ -41,26 +44,30 @@ const ScheduleMeeting = ({ app, setapp }) => {
 						<div class="divider-custom-line"></div>
 					</div>
 				</div>
+				<MuiPickersUtilsProvider utils={DateFnsUtils}>
+					<div class="container">
+						<form onSubmit={handleSubmit}>
+							<div class="form-group">
+								<label for="time">TIME</label>
+								{/* <input type="text" class="form-control" id="alarm" name="time" value={meet.time} placeholder="" onChange={handleChange} required /> */}
+								<TimePicker className="form-control" id="time-input" name="time" value={meet.time} placeholder onChange={handleChange} required style={{ "padding": "10px" }} />
 
-				<div class="container">
-					<form onSubmit={handleSubmit}>
-						<div class="form-group">
-							<label for="time">TIME</label>
-							<input type="text" class="form-control" id="alarm" name="time" value={meet.time} placeholder="" onChange={handleChange} required />
-						</div>
-						<div class="form-group">
-							<label for="date">DATE</label>
-							<input type="text" class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange}
-								placeholder="Date of Interview" required />
-						</div>
-						<button type='submit' class="btn btn-outline-danger" >
-							Schedule
+							</div>
+							<div class="form-group">
+								<label for="date">DATE</label>
+								{/* <input type="text" class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange}
+								placeholder="Date of Interview" required /> */}
+								<DatePicker class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange} placeholder="" required />
+							</div>
+
+							<button type='submit' class="btn btn-outline-danger" >
+								Schedule
 						</button>
-					</form>
-				</div>
+						</form>
+					</div>
+				</MuiPickersUtilsProvider>
 			</div> : <Loader margin />
 	)
 };
 
 export default ScheduleMeeting;
-
