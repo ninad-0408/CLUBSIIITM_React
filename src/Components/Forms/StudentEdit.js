@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Loader from '../Loader/Loader';
 import { useState } from 'react';
-import { editStudent } from '../../Actions/student';
+import { delStudent, editStudent } from '../../Actions/student';
 import { useEffect } from 'react';
 import { getStudent } from '../../Actions/student';
 
@@ -20,6 +20,11 @@ const StudentEdit = () => {
         linkedin: "",
         bio: ""
     });
+
+    const deleteStudent = () => {
+        dispatch(delStudent(studentId));
+        history.push('/');
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -129,7 +134,7 @@ const StudentEdit = () => {
                         <p style={{ 'margin-left': '2.5em', 'padding': '0 7em 2em 0', 'border-width': '2px' }}></p>
                         <div className='pb-5'>
                             <div class="text-muted">Delete all information from <strong>CLUBSIIITM</strong>.</div>
-                            <button type="submit" class="btn btn-outline-danger" >UN-REGISTER</button>
+                            <button class="btn btn-outline-danger" onClick={deleteStudent}>UN-REGISTER</button>
                         </div>
 
                     </div>

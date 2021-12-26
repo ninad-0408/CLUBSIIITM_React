@@ -22,8 +22,8 @@ const Event = () => {
         var clubId = null;
         Object.entries(clubs).forEach(([key, value]) => {
             clubs[key].eventids?.forEach((item) => {
-                if(item._id == eventId)
-                clubId = key;
+                if (item._id == eventId)
+                    clubId = key;
             });
         });
 
@@ -38,17 +38,23 @@ const Event = () => {
 
     return (
         (event !== undefined) ?
-            <div className='profile'>
-                <h1 style={{ "text-align": "center" }}>Event Details</h1>
-                <div class="container">
+            <div className='profile pt-5'>
+                <div class="container mt-5 pt-5">
+                    <h2 class="page-section-heading text-center text-uppercase text-secondary"
+                        style={{ 'font-family': 'Kaushan Script, cursive' }}>Event Details
+                    </h2>
+
+                    <div class="divider-custom">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>
                     <div class="row">
-                        <div class="col mt-5 text-center">
-                            <div class="mt-4 h4">
-                                <img src={`${baseUrl}/image/${event.image}`} alt="" width="400px" height="300px" />
-                            </div>
+                        <div class="col-lg-6 mt-5">
+                            <img img class="img-fluid" src={`${baseUrl}/image/${event.image}`} alt="not found"/>
                         </div>
 
-                        <div class="col mt-5 text-center">
+                        <div class="col-lg-6 mt-5 text-center">
 
                             <div class="mt-4 h4">
                                 <span class="font-weight-bold">Event Name : </span>
@@ -57,14 +63,14 @@ const Event = () => {
 
                             <div class="mt-4 h4">
                                 <span class="font-weight-bold">Event Date : </span>
-                                { 
-                                    `${event.date.substring(8,10)}/${event.date.substring(5,7)}/${event.date.substring(0,4)}`
+                                {
+                                    `${event.date.substring(8, 10)}/${event.date.substring(5, 7)}/${event.date.substring(0, 4)}`
                                 }
                             </div>
 
                             <div class="mt-4 h4">
                                 <span class="font-weight-bold">Event Time : </span>
-                                {`${event.date.substring(11,13)} : ${event.date.substring(14,16)} (IST)` }
+                                {`${event.date.substring(11, 13)} : ${event.date.substring(14, 16)} (IST)`}
                             </div>
 
                             <div class="mt-4 h4">
@@ -81,11 +87,11 @@ const Event = () => {
                         </div>
                     </div>
 
-                    <div class="row mt-5">
-                        <Link to={`${event._id}/edit`} class="offset-md-3 col-md-2 btn btn-primary btn-lg">
+                    <div class="row mt-5 pb-5">
+                        <Link to={`${event._id}/edit`} class="col offset-lg-3 col-lg-2 btn btn-primary btn-lg">
                             Edit Event
                         </Link>
-                        <button class="col-md-2 offset-md-2 btn btn-danger btn-lg" onClick={handleDelete}>
+                        <button class="col col-lg-2 offset-lg-2 btn btn-danger btn-lg" onClick={handleDelete}>
                             Delete Event
                         </button>
                     </div>

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { EditClub } from '../../Actions/club';
 import { useDispatch } from 'react-redux';
+import Loader from '../Loader/Loader';
 
 const ClubEdit = () => {
     const dispatch = useDispatch()
@@ -59,6 +60,7 @@ const ClubEdit = () => {
 
 
     return (
+        club ? 
         <div className="profile pt-5 pb-5">
             <div class="container mt-5 pt-5">
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mt-5"
@@ -110,7 +112,7 @@ const ClubEdit = () => {
                     </div>
                 </form >
             </div >
-        </div>
+        </div> : <Loader margin />
     )
 };
 

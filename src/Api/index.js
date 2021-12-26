@@ -30,12 +30,11 @@ export const approveApproval = (approvalId) => API.post(`/approval/${approvalId}
 export const declineApproval = (approvalId) => API.post(`/approval/${approvalId}/decline`);
 export const ScheduleMeet = (approvalId,meet) => API.post(`/approval/${approvalId}/meet`,meet);
 
-
 export const getUpcomingEvents = () => API.get('/event');
 export const getEvent = (eventId) => API.get(`/event/${eventId}`);
 export const patchEvent = (eventId, updateInfo) => API.patch(`/event/${eventId}`, updateInfo);
 export const delEvent = (eventId) => API.delete(`/event/${eventId}`);
-export const editEvent = (eventId,event) => API.patch(`/event/${eventId}/edit`,event);
 
 export const getStudent = (studentId) => API.get(`/student/${studentId}`); 
 export const editStudent = (studentId,student) => API.patch(`/student/${studentId}`,student);
+export const delStudent = (studentId) => API.delete(`/student/${studentId}`);

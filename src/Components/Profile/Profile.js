@@ -24,6 +24,7 @@ const Profile = () => {
     function handleLogout(){
         localStorage.removeItem('cookie');
         history.push('/');
+        window.location.reload();
     }
 
     return (
