@@ -107,8 +107,11 @@ export const removeMember = (clubId, studentId) => async (dispatch) => {
     try {
         const { data } = await api.removeMember(clubId, studentId);
         const action = {
-            type: actionTypes.REMOVE,
-            payload: data
+            type: actionTypes.DELSTUDENTCLUB,
+            payload: {
+                clubId,
+                studentId
+            }
         }
 
         dispatch(action);

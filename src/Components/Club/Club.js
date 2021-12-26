@@ -17,6 +17,7 @@ const Club = ({ setapp }) => {
     const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
 
     const dispatch = useDispatch();
+
     const clubs = useSelector(state => state.clubs);
     const approvals = useSelector(state => state.approvals);
     
@@ -36,7 +37,7 @@ const Club = ({ setapp }) => {
 
         setadmin((user?._id === club?.presidentid?._id));
 
-    }, [dispatch, club, user, approval]);
+    }, [dispatch, user]);
 
     const handleJoinClub = () => {
         dispatch(postApproval(clubId));
@@ -47,9 +48,9 @@ const Club = ({ setapp }) => {
         dispatch(removeMember(clubId, studentId));
     };
 
-    const handleApprove = (approvalId) => {
+    const handleApprove = (approvalId, student) => {
         setapprove([...approve, approvalId]);
-        dispatch(approveApproval(approvalId, clubId));
+        dispatch(approveApproval(approvalId, clubId, student));
     };
 
     const handleDecline = (approvalId) => {
@@ -58,7 +59,7 @@ const Club = ({ setapp }) => {
     };
 
     return (
-        (club !== undefined && club.presidentid !== undefined) ?
+        (club && club.presidentid ) ?
             <>
                 <header class="masthead bg-primary text-white text-center" id="page-top">
                     <div class="container d-flex align-items-center flex-column">
@@ -73,8 +74,8 @@ const Club = ({ setapp }) => {
                             <div class="divider-custom-line"></div>
                         </div>
                         {
-                            (club.memberids.filter((member) => member._id === user?._id).length === 0) &&
-                            <button type="submit" class="btn btn-success" onClick={handleJoinClub}>JOIN</button>
+                            (club.memberids.filter((member) => member._id === user?._id).length === 0) ?
+                            <button type="submit" class="btn btn-success" onClick={handleJoinClub}>JOIN</button>: <></>
                         }
                     </div>
                 </header>
@@ -156,9 +157,9 @@ const Club = ({ setapp }) => {
                             }
                         </div>
                         {
-                            admin &&
+                            admin ?
                             <Link to={`/club/${clubId}/event`} class="mt-5 col offset-md-4 col-md-4 btn btn-secondary btn-lg"
-                                style={{ 'font-family': 'Ubuntu, sans-serif' }}>Add Event</Link>
+                                style={{ 'font-family': 'Ubuntu, sans-serif' }}>Add Event</Link>: <></>
                         }
                     </div>
                 </section >
@@ -180,7 +181,7 @@ const Club = ({ setapp }) => {
                                             style={{ 'color': 'rgb(0,0,139)' }, { 'font-family': 'Ubuntu, sans-serif' }} class="col colordark">
                                             {member.name}
                                         </Link>
-                                        {admin && (member._id !== user?._id) &&
+                                        { (admin && (member._id !== user?._id)) ?
 
                                             ((disabledRemove.indexOf(member._id) === -1) ?
                                                 <button class="btn btn-danger" onClick={() => removeStudent(member._id)}>Remove</button>
@@ -188,7 +189,7 @@ const Club = ({ setapp }) => {
                                                     <span class="spinner-border spinner-border-sm text-primary" role="status" aria-hidden="true"></span>
                                                     Removing...
                                                 </button>
-                                            )
+                                            ):<></>
                                         }
                                     </li>
                                 )) : 'No Current Events'
@@ -197,7 +198,7 @@ const Club = ({ setapp }) => {
                     </div>
                 </section >
 
-                {approval !== undefined && approval.length &&
+                {(approval !== undefined && approval.length) ?
                     <section class="page-section">
                         <div class="container">
                             <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"
@@ -218,7 +219,7 @@ const Club = ({ setapp }) => {
                                             <div class="btn-group col-xs-6 col-md-4">
                                                 {
                                                     (approve.indexOf(app._id) === -1) ?
-                                                        <a role='button' onClick={() => handleApprove(app._id)}
+                                                        <a role='button' onClick={() => handleApprove(app._id, app.studentid)}
                                                             class="btn btn-success btn-sm">Approve</a>
                                                         :
                                                         <button class="btn btn-success btn-sm" disabled>
@@ -246,7 +247,7 @@ const Club = ({ setapp }) => {
                                 }
                             </ul>
                         </div>
-                    </section>
+                    </section>:<></>
                 }
                 <Footer />
             </> : <Loader margin />

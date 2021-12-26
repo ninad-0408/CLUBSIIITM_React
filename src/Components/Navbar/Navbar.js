@@ -115,12 +115,12 @@ const Navbar = ({ home, club }) => {
                                                 href="#contact" style={{ color: "white" }}>CONTACT</a>
                                             </li>
                                             {
-                                                admin &&
+                                                admin ?
                                                 <li class="nav-item mx-0 mx-lg-1">
                                                     <Link to={`/club/${clubId}/edit`} class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
                                                         style={{ 'color': 'white' }}>
                                                         Edit</Link>
-                                                </li>
+                                                </li>:<></>
                                             }
                                         </ul>
 

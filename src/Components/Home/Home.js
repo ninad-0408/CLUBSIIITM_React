@@ -57,7 +57,7 @@ const Home = () => {
                         <div class="divider-custom-line bg-secondary"></div>
                     </div>
                     <div class="row">
-                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Cultural" && <RenderClub club={p[1]} />) : <Loader />}
+                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Cultural" ? <RenderClub club={p[1]} />: <></>) : <Loader />}
                     </div>
                 </div>
             </section>
@@ -73,7 +73,7 @@ const Home = () => {
                         <div class="divider-custom-line"></div>
                     </div>
                     <div class="row">
-                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Technical" && <RenderClub club={p[1]} />) : <Loader />}
+                        {Object.entries(clubs).length ? Object.entries(clubs).map((p) => p[1].typeofclub === "Technical" ? <RenderClub club={p[1]} />: <></>) : <Loader />}
                     </div>
                 </div>
             </section>
