@@ -7,6 +7,7 @@ import { getClub, getClubApprovals, postApproval, removeMember } from '../../Act
 import { approveApproval, declineApproval } from '../../Actions/approval';
 import Loader from '../Loader/Loader';
 import Footer from '../Footer/Footer';
+import RenderEvent from './RenderEvent';
 
 const Club = ({ setapp }) => {
 
@@ -35,7 +36,7 @@ const Club = ({ setapp }) => {
         if (club === undefined || club.presidentid === undefined)
             dispatch(getClub(clubId));
 
-        setadmin((user?._id === club?.presidentid?._id));
+        setadmin((user?._id === club?.presidentid?._id && user));
 
     }, [dispatch, user]);
 
@@ -143,16 +144,7 @@ const Club = ({ setapp }) => {
                         <div class="row">
                             {
                                 club.eventids.length ? club.eventids.map((event) => (
-                                    <div class="col-md-6 col-lg-4 mb-5">
-                                        <Link to={`/event/${event._id}`}>
-                                            <div class="portfolio-item mx-auto">
-                                                <img class="img-fluid" src={`${baseUrl}/image/${event.image}`} alt="not found" />
-                                                <h2 class="text-center mt-2" style={{ 'font-family': 'Ubuntu, sans-serif' }}>
-                                                    {event.name}
-                                                </h2>
-                                            </div>
-                                        </Link>
-                                    </div>
+                                    <RenderEvent event={event} />
                                 )) : 'No Current Events'
                             }
                         </div>

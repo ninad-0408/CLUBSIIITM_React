@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams,useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { getStudent } from '../../Actions/student';
 import Loader from '../Loader/Loader';
@@ -16,12 +16,19 @@ const Profile = () => {
 
     const student = students[studentId];
 
+    const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
+    const [admin, setadmin] = useState(false);
+
+    useEffect(() => {
+        setadmin((student?._id === user?._id && student && user));
+    }, [student, user]);
+
     useEffect(() => {
         if (!(student !== undefined))
             dispatch(getStudent(studentId));
     }, [dispatch]);
 
-    function handleLogout(){
+    function handleLogout() {
         localStorage.removeItem('cookie');
         history.push('/');
         window.location.reload();
@@ -80,15 +87,21 @@ const Profile = () => {
                             <span class="font-weight-bold mr-2">Batch: </span>
                             {student.batch}
                         </div>
-                       <Link to={`/student/${studentId}/edit`} class="mt-5 btn btn-primary btn-lg" style={{ 'margin-right': '10px', 'background-color:': 'blue' }}>
-                            <i class="fas fa-edit"></i>
-                            Edit Profile
-                        </Link>
-                        
-                        <a  class="mt-5 btn btn-danger btn-lg" onClick={handleLogout}>
-                            <i class="fas fa-sign-out-alt"></i>
-                            Logout
-                        </a>
+                        {
+                            admin ?
+                                <>
+                                    <Link to={`/student/${studentId}/edit`} class="mt-5 btn btn-primary btn-lg" style={{ 'margin-right': '10px', 'background-color:': 'blue' }}>
+                                        <i class="fas fa-edit"></i>
+                                        Edit Profile
+                                    </Link>
+
+                                    <a class="mt-5 btn btn-danger btn-lg" onClick={handleLogout}>
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Logout
+                                    </a>
+                                </> : <></>
+                        }
+
                     </div>
                 </div>
             </> : <Loader margin />

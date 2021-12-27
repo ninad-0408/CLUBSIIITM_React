@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 
@@ -36,6 +36,14 @@ const Event = () => {
             dispatch(getEvent(eventId));
     }, [dispatch]);
 
+    const [image, setimage] = useState(false);
+
+    const handleImage = () => {
+        setimage((e) => !e);
+    }
+
+    const hide = image ? {} : { 'visibility': 'hidden' };
+
     return (
         (event !== undefined) ?
             <div className='profile pt-5'>
@@ -51,7 +59,10 @@ const Event = () => {
                     </div>
                     <div class="row">
                         <div class="col-lg-6 mt-5">
-                            <img img class="img-fluid" src={`${baseUrl}/image/${event.image}`} alt="not found"/>
+                            {!image ? <Loader /> : <></>}
+                            <div style={hide}>
+                                <img class="img-fluid" src={`${baseUrl}/image/${event.image}`} alt="not found" onLoad={handleImage} />
+                            </div>
                         </div>
 
                         <div class="col-lg-6 mt-5 text-center">

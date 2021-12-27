@@ -14,7 +14,7 @@ const Navbar = ({ home, club }) => {
     const [admin, setadmin] = useState(false);
 
     useEffect(() => {
-        setadmin((clubs[clubId]?.presidentid?._id === user?._id));
+        setadmin((clubs[clubId]?.presidentid?._id === user?._id && user));
     }, [clubs, user]);
 
     const googleSuccess = async (res) => {
