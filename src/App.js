@@ -15,7 +15,10 @@ import ClubEdit from './Components/Forms/ClubEdit';
 import EventCreate from './Components/Forms/EventCreate';
 import StudentEdit from './Components/Forms/StudentEdit'
 import EventEdit from './Components/Forms/EventEdit';
-
+import { useAlert } from 'react-alert';
+import { ERROR } from './Constants/actionTypes';
+import { useSelector } from 'react-redux';
+import Alert from './Components/Alert/alert';
 
 
 const App = () => {
@@ -31,6 +34,8 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="App">
+
+            {/* <Alert /> */}
                 <Switch>
                     <Route path='/' exact>
                         <Navbar home />
@@ -40,7 +45,7 @@ const App = () => {
                         <Navbar club />
                         <Club setapp={setapp} />
                     </Route>
-                    <Route  path='/student/:studentId/profile'>
+                    <Route path='/student/:studentId/profile'>
                         <Navbar />
                         <Profile />
                     </Route>
@@ -58,7 +63,7 @@ const App = () => {
                     </Route>
                     <Route path='/approval/:approvalId/meet'>
                         <Navbar />
-                        <Meet app={app} setapp={setapp}/>
+                        <Meet app={app} setapp={setapp} />
                     </Route>
                     <Route path='/club/:clubId/edit'>
                         <Navbar />

@@ -26,7 +26,6 @@ const Profile = () => {
         history.push('/');
         window.location.reload();
     }
-
     return (
 
         (student !== undefined) ?

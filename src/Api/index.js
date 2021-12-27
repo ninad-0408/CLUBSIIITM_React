@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { baseUrl } from '../Constants/baseUrl';
+import { addAlert } from '../Actions/alert';
+import { useDispatch } from 'react-redux';
 
 const API = axios.create({ baseURL: baseUrl });
-
 API.interceptors.request.use((req) => {
     const token = JSON.parse(localStorage.getItem('cookie'))?.token;
     
@@ -14,7 +15,26 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const getAuth = (profile) => API.post('/auth', profile);
+// API.interceptors.response.use(
+//     (res) => {
+ 
+//      if(res.data.message)
+//      {
+//          console.log(res.data.message);
+//         //  addAlert(res.data.message);
+//          return res;
+//      }
+//     },
+//     (err) => {
+//         // console.log(err);
+//        return Promise.reject(err);
+//     }
+//  );
+
+export const getAuth = (profile) => API.post('/auth', profile).then(function(res){
+    
+    return res;
+});
 
 export const getClubs = () => API.get('/club');
 export const getClub = (clubId) => API.get(`/club/${clubId}`);
