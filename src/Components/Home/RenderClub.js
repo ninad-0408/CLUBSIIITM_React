@@ -18,7 +18,7 @@ const RenderClub = ({ club }) => {
         <div class="col-md-6 col-lg-4 mb-5" key={club._id}>
             <Link to={`club/${club._id}`}>
                 <div class="portfolio-item mx-auto">
-                    {!image && <Loader />}
+                    {!image ? <Loader />:<></>}
                     <div style={hide}>
                         <img class="img-fluid" style={{ 'width': '25rem' }} src={`${baseUrl}/image/${club.image}`} alt="not found" onLoad={handleImage} />
                     </div>

@@ -5,7 +5,7 @@ import { ScheduleMeet } from '../../Actions/approval'
 import Loader from '../Loader/Loader';
 import { useHistory } from 'react-router';
 import DateFnsUtils from '@date-io/date-fns';
-import {DatePicker,	TimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const ScheduleMeeting = ({ app, setapp }) => {
 	const dispatch = useDispatch();
@@ -49,20 +49,16 @@ const ScheduleMeeting = ({ app, setapp }) => {
 						<form onSubmit={handleSubmit}>
 							<div class="form-group">
 								<label for="time">TIME</label>
-								{/* <input type="text" class="form-control" id="alarm" name="time" value={meet.time} placeholder="" onChange={handleChange} required /> */}
 								<TimePicker className="form-control" id="time-input" name="time" value={meet.time} placeholder onChange={handleChange} required style={{ "padding": "10px" }} />
-
 							</div>
 							<div class="form-group">
 								<label for="date">DATE</label>
-								{/* <input type="text" class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange}
-								placeholder="Date of Interview" required /> */}
 								<DatePicker class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange} placeholder="" required />
 							</div>
 
 							<button type='submit' class="btn btn-outline-danger" >
 								Schedule
-						</button>
+							</button>
 						</form>
 					</div>
 				</MuiPickersUtilsProvider>
