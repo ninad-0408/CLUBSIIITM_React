@@ -8,6 +8,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const ScheduleMeeting = ({ app, setapp }) => {
+	
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [meet, setMeet] = useState({
@@ -46,19 +47,20 @@ const ScheduleMeeting = ({ app, setapp }) => {
 				</div>
 				<MuiPickersUtilsProvider utils={DateFnsUtils}>
 					<div class="container">
-						<form onSubmit={handleSubmit}>
-							<div class="form-group">
+						<form onSubmit={handleSubmit} className='row'>
+							<div class="form-group col-12 col-md-6">
 								<label for="time">TIME</label>
 								<TimePicker className="form-control" id="time-input" name="time" value={meet.time} placeholder onChange={handleChange} required style={{ "padding": "10px" }} />
 							</div>
-							<div class="form-group">
+							<div class="form-group col-12 col-md-6">
 								<label for="date">DATE</label>
-								<DatePicker class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange} placeholder="" required />
+								<DatePicker class="form-control" id="date-input" name="date" value={meet.date} onChange={handleChange} placeholder required />
 							</div>
-
-							<button type='submit' class="btn btn-outline-danger" >
-								Schedule
-							</button>
+							<div className="col-12">
+								<button type='submit' class="mt-5 mb-5 btn btn-outline-danger" >
+									Schedule
+								</button>
+							</div>
 						</form>
 					</div>
 				</MuiPickersUtilsProvider>
