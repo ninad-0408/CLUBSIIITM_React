@@ -4,20 +4,30 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { ScheduleEvent } from '../../Actions/club';
 import { useParams } from 'react-router';
+import DateFnsUtils from '@date-io/date-fns';
+import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const EventCreate = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { clubId } = useParams();
+    const [datetime, setDatetime] = useState({date: new Date(), time: new Date()})
 
     const [event, setEvent] = useState({
         name: "",
-        date: "",
-        time: "",
+        date: new Date(),
+        time: new Date(),
         meetlink: "",
         description: "",
         image: null
     });
+
+    function handleDate(event){
+        setDatetime({
+            date: event,
+            time: event
+		})
+    }
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -40,6 +50,8 @@ const EventCreate = () => {
     }
 
     const handleSubmit = (e) => {
+        e.date=datetime.date;
+        e.time=datetime.time;
         e.preventDefault();
         dispatch(ScheduleEvent(clubId, event));
         history.goBack();
@@ -62,17 +74,19 @@ const EventCreate = () => {
                         <label for="name" class="form-label">Name of Event</label>
                         <input type="text" class="form-control" id="name" name="name" value={event.name} onChange={handleChange} required />
                     </div>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <div class="form-group">
+                            <label for="date" class="form-label">Date of Event</label>
+                            {/* <input type="date" class="form-control" id="date" name="date" value={event.date} onChange={handleChange} required /> */}
+                            <DatePicker class="form-control" id="date" name="date" value={datetime.date} onChange={handleDate} placeholder="" required />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="date" class="form-label">Date of Event</label>
-                        <input type="date" class="form-control" id="date" name="date" value={event.date} onChange={handleChange} required />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="time" class="form-label">Time of Event</label>
-                        <input type="time" class="form-control" id="time" name="time" value={event.time} onChange={handleChange} required />
-                    </div>
-
+                        <div class="form-group">
+                            <label for="time" class="form-label">Time of Event</label>
+                            {/* <input type="time" class="form-control" id="time" name="time" value={event.time} onChange={handleChange} required /> */}
+                            <TimePicker className="form-control" id="time" name="time" value={datetime.time} placeholder onChange={handleDate} required style={{ "padding": "10px" }} />
+                        </div>
+                    </MuiPickersUtilsProvider>
                     <div class="form-group">
                         <label for="meetlink" class="form-label">Meetlink</label>
                         <input type="text" class="form-control" id="meetlink" name="meetlink" value={event.meetlink} onChange={handleChange} required />
