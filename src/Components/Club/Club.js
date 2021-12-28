@@ -14,6 +14,7 @@ const Club = ({ setapp }) => {
     const [disabledRemove, setdisabledRemove] = useState([]);
     const [approve, setapprove] = useState([]);
     const [decline, setdecline] = useState([]);
+    const [admin, setadmin] = useState(false);
 
     const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
 
@@ -27,19 +28,22 @@ const Club = ({ setapp }) => {
     const approval = approvals[clubId];
     const club = clubs[clubId];
 
-    const [admin, setadmin] = useState(false);
 
     useEffect(() => {
-        if (admin && approval === undefined)
-            dispatch(getClubApprovals(clubId));
-
-        if (club === undefined || club.presidentid === undefined)
-            dispatch(getClub(clubId));
-
         setadmin((user?._id === club?.presidentid?._id && user));
+    }, [dispatch]);
 
-    }, [dispatch, user]);
+    useEffect(() => {
+        if (club === undefined || club.presidentid === undefined)
+            dispatch(getClub(clubId));            
+    }, [dispatch]);
 
+    useEffect(() => {
+        if(user?._id === club?.presidentid?._id && user)
+        dispatch(getClubApprovals(clubId));
+    },[club]);
+    
+        
     const handleJoinClub = () => {
         dispatch(postApproval(clubId));
     };
