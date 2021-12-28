@@ -21,10 +21,15 @@ const Profile = () => {
 
     useEffect(() => {
         setadmin((student?._id === user?._id && student && user));
-    }, [student, user]);
+    }, [student]);
 
     useEffect(() => {
-        if (!(student !== undefined))
+        if(!user)
+        {
+            new Promise(res => setTimeout(res, 2000))
+            .then(() => history.goBack());            
+        }
+        if (!(student))
             dispatch(getStudent(studentId));
     }, [dispatch]);
 

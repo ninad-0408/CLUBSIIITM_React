@@ -3,10 +3,11 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 
 import { getAuth } from '../../Actions/auth';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Navbar = ({ home, club }) => {
 
+    const dispatch = useDispatch();
     const history = useHistory();
     const clubs = useSelector(state => state.clubs);
     const { clubId } = useParams();
@@ -15,7 +16,7 @@ const Navbar = ({ home, club }) => {
 
     useEffect(() => {
         setadmin((clubs[clubId]?.presidentid?._id === user?._id && user));
-    }, [clubs, user]);
+    }, [dispatch, clubs]);
 
     const googleSuccess = async (res) => {
         const profile = res.profileObj;

@@ -18,6 +18,27 @@ const Event = () => {
 
     const event = events[eventId];
 
+    const user = JSON.parse(localStorage.getItem('cookie'))?.profile;
+    const [admin, setadmin] = useState(false);
+
+
+    useEffect(() => {
+        if(!user)
+        {
+            new Promise(res => setTimeout(res, 2000))
+            .then(() => history.goBack());            
+        }
+        
+        var clubId = null;
+        Object.entries(clubs).forEach(([key, value]) => {
+            clubs[key].eventids?.forEach((item) => {
+                if (item._id == eventId)
+                    clubId = key;
+            });
+        });
+        setadmin((clubs[clubId]?.presidentid?._id === user?._id && user));
+    }, [dispatch, clubs]);
+
     const handleDelete = () => {
         var clubId = null;
         Object.entries(clubs).forEach(([key, value]) => {
@@ -46,7 +67,7 @@ const Event = () => {
 
     return (
         (event !== undefined) ?
-            <div className='profile pt-5'>
+            <div className='profile pt-5 pb-5'>
                 <div class="container mt-5 pt-5">
                     <h2 class="page-section-heading text-center text-uppercase text-secondary"
                         style={{ 'font-family': 'Kaushan Script, cursive' }}>Event Details
@@ -97,15 +118,18 @@ const Event = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        admin ?
+                            <div class="row mt-5 pb-5">
+                                <Link to={`${event._id}/edit`} class="col offset-lg-3 col-lg-2 btn btn-primary btn-lg">
+                                    Edit Event
+                                </Link>
+                                <button class="col col-lg-2 offset-lg-2 btn btn-danger btn-lg" onClick={handleDelete}>
+                                    Delete Event
+                                </button>
+                            </div> : <></>
+                    }
 
-                    <div class="row mt-5 pb-5">
-                        <Link to={`${event._id}/edit`} class="col offset-lg-3 col-lg-2 btn btn-primary btn-lg">
-                            Edit Event
-                        </Link>
-                        <button class="col col-lg-2 offset-lg-2 btn btn-danger btn-lg" onClick={handleDelete}>
-                            Delete Event
-                        </button>
-                    </div>
                 </div>
             </div>
             : <Loader margin />

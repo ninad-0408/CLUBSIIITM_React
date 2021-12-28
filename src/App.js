@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Home from './Components/Home/Home';
 import Club from './Components/Club/Club';
 import Navbar from './Components/Navbar/Navbar';
+import Alert from './Components/Alert/Alert';
 
 import { getClubs } from './Actions/club';
 import { getUpcomingEvents } from './Actions/event';
@@ -31,6 +32,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="App">
+                <Alert />
                 <Switch>
                     <Route path='/' exact>
                         <Navbar home />
@@ -40,7 +42,7 @@ const App = () => {
                         <Navbar club />
                         <Club setapp={setapp} />
                     </Route>
-                    <Route  path='/student/:studentId/profile'>
+                    <Route path='/student/:studentId/profile'>
                         <Navbar />
                         <Profile />
                     </Route>
@@ -58,7 +60,7 @@ const App = () => {
                     </Route>
                     <Route path='/approval/:approvalId/meet'>
                         <Navbar />
-                        <Meet app={app} setapp={setapp}/>
+                        <Meet app={app} setapp={setapp} />
                     </Route>
                     <Route path='/club/:clubId/edit'>
                         <Navbar />
