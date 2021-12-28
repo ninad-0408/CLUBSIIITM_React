@@ -4,6 +4,7 @@
   <a href="#overview">Overview</a> •
 <!--   <a href="#local-installation">Local Installation</a> • -->
   <a href="#tech-stack">Tech Stack</a> •
+	  <a href="#links">Links</a> •
   <a href="#team-members">Team Members</a>
 </p>
 
