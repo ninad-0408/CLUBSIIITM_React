@@ -7,6 +7,8 @@ import { getEvent } from '../../Actions/event';
 import Loader from '../Loader/Loader';
 import { patchEvent } from '../../Actions/event'
 import { useState } from 'react';
+import DateFnsUtils from '@date-io/date-fns';
+import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 import { baseUrl } from '../../Constants/baseUrl';
 
@@ -19,6 +21,7 @@ const EventEdit = () => {
     const { eventId } = useParams();
     const events = useSelector(state => state.events);
     const event = events[eventId];
+
     const [upevent, setEvent] = useState(new FormData());
     const [rerender, setrerender] = useState(false);
 
@@ -40,6 +43,8 @@ const EventEdit = () => {
     }
 
     const handleSubmit = (e) => {
+        e.date=datetime.date;
+        e.time=datetime.time;
         dispatch(patchEvent(eventId, upevent));
         history.push(`/event/${eventId}`);
     };
@@ -80,9 +85,9 @@ const EventEdit = () => {
                 <div className='profile pt-5 pb-5'>
                     <div class="container mt-5 pt-5">
                         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0"
-                            style={{ 'font-family': 'Kaushan Script,cursive'}}>Edit  Event
+                            style={{ 'font-family': 'Kaushan Script,cursive' }}>Edit  Event
                         </h2>
-                        
+
                         <div class="divider-custom">
                             <div class="divider-custom-line"></div>
                             <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
@@ -95,16 +100,17 @@ const EventEdit = () => {
                                 <input type="text" class="form-control" id="name" name="name" value={upevent.get('name')} onChange={handleChange} required />
                             </div>
 
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <div class="form-group">
                                 <label for="date" class="form-label">Date of Event</label>
-                                <input type="date" class="form-control" id="date" name="date" value={upevent.get('date')} onChange={handleChange} required />
+                                <DatePicker type="date" class="form-control" id="date" name="date" value={upevent.get('date')} onChange={handleChange} required />
                             </div>
 
                             <div class="form-group">
                                 <label for="time" class="form-label">Time of Event</label>
-                                <input type="time" class="form-control" id="time" value={upevent.get('time')} name="time" onChange={handleChange} required />
+                                <TimePicker type="time" class="form-control" id="time" value={upevent.get('time')} name="time" onChange={handleChange} required />
                             </div>
-
+                            </MuiPickersUtilsProvider>
                             <div class="form-group">
                                 <label for="meetlink" class="form-label">Meetlink</label>
                                 <input type="text" class="form-control" id="meetlink" value={upevent.get('meetlink')} name="meetlink" onChange={handleChange} required />
