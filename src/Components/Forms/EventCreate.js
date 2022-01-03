@@ -1,9 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { ScheduleEvent } from '../../Actions/club';
 import { useParams } from 'react-router';
+import { ScheduleEvent } from '../../Actions/club';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
@@ -13,14 +13,11 @@ const EventCreate = () => {
     const { clubId } = useParams();
     const [datetime, setDatetime] = useState({date: new Date(), time: new Date()})
 
-    const [event, setEvent] = useState({
-        name: "",
-        date: new Date(),
-        time: new Date(),
-        meetlink: "",
-        description: "",
-        image: null
-    });
+
+    const preview = useRef(null);
+
+    const [event, setEvent] = useState(new FormData());
+    const [rerender, setrerender] = useState(false);
 
     function handleDate(event){
         setDatetime({
@@ -33,20 +30,18 @@ const EventCreate = () => {
         const { name, value } = e.target;
         if (name !== 'image')
             setEvent((prev) => {
-                return {
-                    ...prev,
-                    [name]: value
-                };
+                prev.set(name, value);
+                return prev;
             });
 
         else
             setEvent((prev) => {
-                console.log(e);
-                return {
-                    ...prev,
-                    'image': e.target.files[0]
-                };
+                prev.set(name, e.target.files[0]);
+                preview.current.src = URL.createObjectURL(e.target.files[0]);
+                return prev;
             });
+        
+        setrerender(!rerender);
     }
 
     const handleSubmit = (e) => {
@@ -105,7 +100,7 @@ const EventCreate = () => {
                         <input type="file" name="image" id="image" style={{ 'display': 'none' }} onChange={handleChange} />
                     </div>
                     <div class="form-group">
-                        <img id="output" width="600px" />
+                        <img ref={preview} className='img-fluid' />
                     </div>
 
                     <button class="btn btn-primary" >Submit</button>

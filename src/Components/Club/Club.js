@@ -31,10 +31,9 @@ const Club = ({ setapp }) => {
 
     useEffect(() => {
         setadmin((user?._id === club?.presidentid?._id && user));
-    }, [dispatch]);
+    }, [club,dispatch]);
 
     useEffect(() => {
-        if (club === undefined || club.presidentid === undefined)
             dispatch(getClub(clubId));            
     }, [dispatch]);
 

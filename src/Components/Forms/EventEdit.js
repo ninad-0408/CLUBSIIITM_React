@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getEvent } from '../../Actions/event';
 import Loader from '../Loader/Loader';
 import { patchEvent } from '../../Actions/event'
@@ -10,32 +10,36 @@ import { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
+import { baseUrl } from '../../Constants/baseUrl';
+
 const EventEdit = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const preview = useRef();
 
     const { eventId } = useParams();
     const events = useSelector(state => state.events);
     const event = events[eventId];
-    const [upevent, setevent] = useState(null);
-    const [datetime, setDatetime] = useState({date: new Date(), time: new Date()})
+
+    const [upevent, setEvent] = useState(new FormData());
+    const [rerender, setrerender] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setevent((prev) => {
-            return {
-                ...prev,
-                [name]: value
-            };
-        });
-    }
+        if (name !== 'image')
+            setEvent((prev) => {
+                prev.set(name, value);
+                return prev;
+            });
 
-    function handleDate(event){
-        setDatetime({
-            date: event,
-            time: event
-		})
+        else
+            setEvent((prev) => {
+                prev.set(name, e.target.files[0]);
+                preview.current.src = URL.createObjectURL(e.target.files[0]);
+                return prev;
+            });
+        setrerender(!rerender);
     }
 
     const handleSubmit = (e) => {
@@ -51,10 +55,29 @@ const EventEdit = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        const date = `${event?.date.substring(0, 10)}`;
-        const time = `${event?.date.substring(11, 13)}:${event?.date.substring(14, 16)}`;
-        setevent({ ...event, date: date, time: time });
-    }, [event]);
+        if(event)
+        {
+            const date = event?.date.substring(0,10);
+            const time = `${event?.date.substring(11,13)}:${event?.date.substring(14,16)}`;
+            preview.current.src = `${baseUrl}/image/${event?.image}`;
+
+            Object.entries(event).forEach(([key, value]) => {
+                setEvent((prev) => {
+                    prev.append(key, event[key]);
+                    return prev;
+                });
+            });
+            
+
+            setEvent((prev) => {
+                prev.append('time', time);
+                prev.set('date', date);
+                return prev;
+            });
+
+        }
+        setrerender(!rerender);
+    }, [dispatch, event]);
 
     return (
         upevent ?
@@ -74,40 +97,39 @@ const EventEdit = () => {
                         <form onSubmit={handleSubmit}>
                             <div class="form-group">
                                 <label for="name" class="form-label">Name of Event</label>
-                                <input type="text" class="form-control" id="name" name="name" value={upevent.name} onChange={handleChange} required />
+                                <input type="text" class="form-control" id="name" name="name" value={upevent.get('name')} onChange={handleChange} required />
                             </div>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <div class="form-group">
-                                    <label for="date" class="form-label">Date of Event</label>
-                                    {/* <input type="date" class="form-control" id="date" value={upevent.date} name="date" onChange={handleChange} required /> */}
-                                    <DatePicker class="form-control" id="date" name="date" value={datetime.date} onChange={handleDate} placeholder="" required />
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="time" class="form-label">Time of Event</label>
-                                    {/* <input type="time" class="form-control" id="time" value={upevent.time} name="time" onChange={(e) => console.log(e)} required /> */}
-                                    <TimePicker className="form-control" id="time" name="time" value={datetime.time} placeholder onChange={handleDate} required style={{ "padding": "10px" }} />
-                                </div>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <div class="form-group">
+                                <label for="date" class="form-label">Date of Event</label>
+                                <DatePicker type="date" class="form-control" id="date" name="date" value={upevent.get('date')} onChange={handleChange} required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="time" class="form-label">Time of Event</label>
+                                <TimePicker type="time" class="form-control" id="time" value={upevent.get('time')} name="time" onChange={handleChange} required />
+                            </div>
                             </MuiPickersUtilsProvider>
                             <div class="form-group">
                                 <label for="meetlink" class="form-label">Meetlink</label>
-                                <input type="text" class="form-control" id="meetlink" value={upevent.meetlink} name="meetlink" onChange={handleChange} required />
+                                <input type="text" class="form-control" id="meetlink" value={upevent.get('meetlink')} name="meetlink" onChange={handleChange} required />
                             </div>
 
 
                             <div class="form-group">
                                 <label for="description" class="form-label">Description of Event</label>
-                                <input type="text" class="form-control" id="description" value={upevent.description} name="description" onChange={handleChange} required />
+                                <input type="text" class="form-control" id="description" value={upevent.get('description')} name="description" onChange={handleChange} required />
                             </div>
 
                             <div class="form-group">
                                 <label for="image" class="btn btn-danger btn-md">
                                     Choose Banner of Event
                                 </label>
-                                <input type="file" name="image" id="image" onChange="loadFile(event)" style={{ "display": "none" }} />
+                                <input type="file" name="image" id="image" onChange={handleChange} style={{ "display": "none" }} />
                             </div>
                             <div class="form-group">
-                                <img class="img-fluid" src="/image/" id="output" />
+                                <img className="img-fluid" ref={preview} />
                             </div>
 
                             <button class="btn btn-primary">Submit</button>
