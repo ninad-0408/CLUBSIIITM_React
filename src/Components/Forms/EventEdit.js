@@ -26,6 +26,7 @@ const EventEdit = () => {
     const [rerender, setrerender] = useState(false);
 
     const handleChange = (e) => {
+        console.log(e.target);
         const { name, value } = e.target;
         if (name !== 'image')
             setEvent((prev) => {
@@ -43,9 +44,8 @@ const EventEdit = () => {
     }
 
     const handleSubmit = (e) => {
-        e.date=datetime.date;
-        e.time=datetime.time;
-        dispatch(patchEvent(eventId, upevent));
+        console.log(upevent);
+        dispatch(patchEvent(eventId, upevent)); 
         history.push(`/event/${eventId}`);
     };
 
